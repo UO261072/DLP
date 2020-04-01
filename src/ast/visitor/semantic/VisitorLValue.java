@@ -119,8 +119,10 @@ public class VisitorLValue extends AbstractVisitor {
     @Override
     public Object visit(Read a, Object p) {
         super.visit(a, p);
-        if(!a.getList().get(0).isLValue()){
-            ErrorHandler.getInstance().addError(new ErrorType(a.getList().get(0).getLine(),a.getList().get(0).getColumn(),"No se le puede asignar un valor a esto"));
+        if(a.getList()!=null) {
+            if (!a.getList().get(0).isLValue()) {
+                ErrorHandler.getInstance().addError(new ErrorType(a.getList().get(0).getLine(), a.getList().get(0).getColumn(), "No se le puede asignar un valor a esto"));
+            }
         }
         return null;
     }

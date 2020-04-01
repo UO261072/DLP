@@ -1,5 +1,6 @@
 package ast.visitor;
 
+import ast.ErrorHandler;
 import ast.FunctionCall;
 import ast.Program;
 import ast.definitions.FunDef;
@@ -12,6 +13,7 @@ import ast.expressions.literal.LiteralInteger;
 import ast.expressions.literal.LiteralReal;
 import ast.expressions.other.*;
 import ast.statements.*;
+import types.ErrorType;
 
 public abstract class AbstractVisitor implements Visitor {
 
@@ -124,8 +126,13 @@ public abstract class AbstractVisitor implements Visitor {
 
     @Override
     public Object visit(Read a, Object p) {
-        for(int i=0;i<a.getList().size();i++){
-            a.getList().get(i).accept(this,p);
+        if(a.getList()!=null) {
+            for (int i = 0; i < a.getList().size(); i++) {
+                a.getList().get(i).accept(this, p);
+            }
+        }
+        else{
+            ErrorHandler.getInstance().addError(new ErrorType(a.getLine(),a.getColumn(),"El objetivo de guardado del read no es valido o no existe"));
         }
         return null;
     }
