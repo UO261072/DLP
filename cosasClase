@@ -1,0 +1,4 @@
+Interface Visitor
+ASTNode ast=parser.run();
+Visitor visitor=new VisitorX();
+visitor.visit(ast);
