@@ -1,5 +1,6 @@
 import ast.Program;
 import ast.visitor.Visitor;
+import ast.visitor.identification.VisitorIdentification;
 import ast.visitor.semantic.VisitorLValue;
 import introspector.model.IntrospectorModel;
 import introspector.view.IntrospectorTree;
@@ -26,7 +27,9 @@ public class Main {
 		CmmParser parser = new CmmParser(tokens);	
 		Program p=parser.program().ast;
 		System.out.println("FINISHED");
+		Visitor v1=new VisitorIdentification();
 		Visitor v=new VisitorLValue();
+		v1.visit(p,null);
 		v.visit(p,null);
 		if(ErrorHandler.getInstance().anyError()){
 			ErrorHandler.getInstance().showErrors();

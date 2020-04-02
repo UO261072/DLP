@@ -3,6 +3,8 @@ void a(){
         int i;
         i=0;
     }else{
-    puede=0;
+        char i;
+        char a;
+        a=i-4;
     }
 }
