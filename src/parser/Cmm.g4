@@ -17,7 +17,8 @@ grammar Cmm;
        program returns [Program ast=new Program(0,0,new ArrayList<AbstractDefinition>());]: (
        fundef {$ast.addDefinition($fundef.ast);}
        |(vardef {$ast.addDefinition($vardef.ast);
-       $ast.addDefinitions($vardef.astl);}';'))*;
+       $ast.addDefinitions($vardef.astl);}';')|
+       struct{$ast.addDefinition($struct.ast);})*;
 
        statement returns [ast.statements.Statement ast]: (asignation{$ast=$asignation.ast;}|(funinv{$ast=$funinv.ast;}';')|devuelve{$ast=$devuelve.ast;}|struct{$ast=$struct.ast;}|array{$ast=$array.ast;}|write{$ast=$write.ast;}|read{$ast=$read.ast;}|mientras{$ast=$mientras.ast;}|si{$ast=$si.ast;})
 
