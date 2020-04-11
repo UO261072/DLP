@@ -16,6 +16,20 @@ public class FunctionType extends AbstractType implements Type{
 		this.returnType = returnType;
 		this.param = param;
 	}
-	
-	
+
+	public List<VarDef> getParam() {
+		return param;
+	}
+
+	public void setParam(List<VarDef> param) {
+		this.param = param;
+	}
+
+	public Type getReturnType() {
+		return returnType;
+	}
+
+	public void setReturnType(Type returnType) {
+		this.returnType = returnType;
+	}
 }

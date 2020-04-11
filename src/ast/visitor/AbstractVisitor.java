@@ -13,13 +13,18 @@ import ast.expressions.literal.LiteralInteger;
 import ast.expressions.literal.LiteralReal;
 import ast.expressions.other.*;
 import ast.statements.*;
+import com.sun.org.apache.xpath.internal.compiler.FunctionTable;
 import types.ErrorType;
+import types.complex.FunctionType;
 
 public abstract class AbstractVisitor implements Visitor {
 
 
     @Override
     public Object visit(FunDef a, Object p) {
+        for(int i=0;i<((FunctionType)a.getType()).getParam().size();i++){
+            ((FunctionType)a.getType()).getParam().get(i).accept(this,p);
+        }
         for(int i=0;i<a.getSentences().size();i++){
             a.getSentences().get(i).accept(this,p);
         }

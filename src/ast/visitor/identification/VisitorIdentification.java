@@ -4,6 +4,7 @@ import ast.ErrorHandler;
 import ast.Program;
 import ast.definitions.FunDef;
 import ast.definitions.VarDef;
+import ast.expressions.other.Variable;
 import ast.visitor.AbstractVisitor;
 import ast.visitor.Visitor;
 import simbolTable.SymbolTable;
@@ -32,5 +33,12 @@ public class VisitorIdentification extends AbstractVisitor implements Visitor {
             ErrorHandler.getInstance().addError(new ErrorType(a.getLine(),a.getColumn(),"El nombre "+a.getName()+" ya esta definido en el scope"));
         super.visit(a, p);
         return null;
+    }
+
+    @Override
+    public Object visit(Variable a, Object p) {
+        if(st.find(a.getNombre())==null)
+            ErrorHandler.getInstance().addError(new ErrorType(a.getLine(),a.getColumn(),"Esta variable no ha sido definida"));
+        return super.visit(a, p);
     }
 }

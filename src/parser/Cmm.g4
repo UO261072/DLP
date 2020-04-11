@@ -129,7 +129,7 @@ grammar Cmm;
 
        read returns[Read ast]: 'read' (listaChar{$ast=new Read(0,0,$listaChar.ast);}|funinv{$ast=new Read(0,0,null);}) ';';
 
-       listaChar returns[List<Expression> ast=new ArrayList<Expression>()]: c1=CHAR_CONSTANT{$ast.add(new LiteralCharacter($c1.getLine(),$c1.getCharPositionInLine(),(char)$c1.text.charAt(0)));} (','c2=CHAR_CONSTANT{$ast.add(new LiteralCharacter($c2.getLine(),$c2.getCharPositionInLine(),(char)$c2.text.charAt(0)));})*;
+       listaChar returns[List<Expression> ast=new ArrayList<Expression>()]: (e1=expr{$ast.add($e1.ast);}|funinv{$ast.add($funinv.ast);}) (','(e2=expr{$ast.add($e2.ast);}|funinv{$ast.add($funinv.ast);}))*;
 
 
 

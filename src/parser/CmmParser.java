@@ -1667,23 +1667,21 @@ public class CmmParser extends Parser {
 			match(T__33);
 			setState(327);
 			_errHandler.sync(this);
-			switch (_input.LA(1)) {
-			case CHAR_CONSTANT:
+			switch ( getInterpreter().adaptivePredict(_input,21,_ctx) ) {
+			case 1:
 				{
 				setState(321);
 				((WriteContext)_localctx).listaChar = listaChar();
 				((WriteContext)_localctx).ast = new Write(0,0,((WriteContext)_localctx).listaChar.ast);
 				}
 				break;
-			case ID:
+			case 2:
 				{
 				setState(324);
 				((WriteContext)_localctx).funinv = funinv();
 				List<Expression> a=new ArrayList<Expression>();a.add(((WriteContext)_localctx).funinv.ast);((WriteContext)_localctx).ast = new Write(0,0,a);
 				}
 				break;
-			default:
-				throw new NoViableAltException(this);
 			}
 			setState(329);
 			match(T__0);
@@ -1725,23 +1723,21 @@ public class CmmParser extends Parser {
 			match(T__34);
 			setState(338);
 			_errHandler.sync(this);
-			switch (_input.LA(1)) {
-			case CHAR_CONSTANT:
+			switch ( getInterpreter().adaptivePredict(_input,22,_ctx) ) {
+			case 1:
 				{
 				setState(332);
 				((ReadContext)_localctx).listaChar = listaChar();
 				((ReadContext)_localctx).ast = new Read(0,0,((ReadContext)_localctx).listaChar.ast);
 				}
 				break;
-			case ID:
+			case 2:
 				{
 				setState(335);
 				funinv();
 				((ReadContext)_localctx).ast = new Read(0,0,null);
 				}
 				break;
-			default:
-				throw new NoViableAltException(this);
 			}
 			setState(340);
 			match(T__0);
@@ -1760,11 +1756,20 @@ public class CmmParser extends Parser {
 
 	public static class ListaCharContext extends ParserRuleContext {
 		public List<Expression> ast = new ArrayList<Expression>();
-		public Token c1;
-		public Token c2;
-		public List<TerminalNode> CHAR_CONSTANT() { return getTokens(CmmParser.CHAR_CONSTANT); }
-		public TerminalNode CHAR_CONSTANT(int i) {
-			return getToken(CmmParser.CHAR_CONSTANT, i);
+		public ExprContext e1;
+		public FuninvContext funinv;
+		public ExprContext e2;
+		public List<FuninvContext> funinv() {
+			return getRuleContexts(FuninvContext.class);
+		}
+		public FuninvContext funinv(int i) {
+			return getRuleContext(FuninvContext.class,i);
+		}
+		public List<ExprContext> expr() {
+			return getRuleContexts(ExprContext.class);
+		}
+		public ExprContext expr(int i) {
+			return getRuleContext(ExprContext.class,i);
 		}
 		public ListaCharContext(ParserRuleContext parent, int invokingState) {
 			super(parent, invokingState);
@@ -1779,23 +1784,53 @@ public class CmmParser extends Parser {
 		try {
 			enterOuterAlt(_localctx, 1);
 			{
-			setState(342);
-			((ListaCharContext)_localctx).c1 = match(CHAR_CONSTANT);
-			_localctx.ast.add(new LiteralCharacter(((ListaCharContext)_localctx).c1.getLine(),((ListaCharContext)_localctx).c1.getCharPositionInLine(),(char)(((ListaCharContext)_localctx).c1!=null?((ListaCharContext)_localctx).c1.getText():null).charAt(0)));
-			setState(349);
+			setState(348);
+			_errHandler.sync(this);
+			switch ( getInterpreter().adaptivePredict(_input,23,_ctx) ) {
+			case 1:
+				{
+				setState(342);
+				((ListaCharContext)_localctx).e1 = expr(0);
+				_localctx.ast.add(((ListaCharContext)_localctx).e1.ast);
+				}
+				break;
+			case 2:
+				{
+				setState(345);
+				((ListaCharContext)_localctx).funinv = funinv();
+				_localctx.ast.add(((ListaCharContext)_localctx).funinv.ast);
+				}
+				break;
+			}
+			setState(361);
 			_errHandler.sync(this);
 			_la = _input.LA(1);
 			while (_la==T__1) {
 				{
 				{
-				setState(344);
+				setState(350);
 				match(T__1);
-				setState(345);
-				((ListaCharContext)_localctx).c2 = match(CHAR_CONSTANT);
-				_localctx.ast.add(new LiteralCharacter(((ListaCharContext)_localctx).c2.getLine(),((ListaCharContext)_localctx).c2.getCharPositionInLine(),(char)(((ListaCharContext)_localctx).c2!=null?((ListaCharContext)_localctx).c2.getText():null).charAt(0)));
+				setState(357);
+				_errHandler.sync(this);
+				switch ( getInterpreter().adaptivePredict(_input,24,_ctx) ) {
+				case 1:
+					{
+					setState(351);
+					((ListaCharContext)_localctx).e2 = expr(0);
+					_localctx.ast.add(((ListaCharContext)_localctx).e2.ast);
+					}
+					break;
+				case 2:
+					{
+					setState(354);
+					((ListaCharContext)_localctx).funinv = funinv();
+					_localctx.ast.add(((ListaCharContext)_localctx).funinv.ast);
+					}
+					break;
 				}
 				}
-				setState(351);
+				}
+				setState(363);
 				_errHandler.sync(this);
 				_la = _input.LA(1);
 			}
@@ -1836,7 +1871,7 @@ public class CmmParser extends Parser {
 	}
 
 	public static final String _serializedATN =
-		"\3\u608b\ua72a\u8133\ub9ed\u417c\u3be7\u7786\u5964\3+\u0163\4\2\t\2\4"+
+		"\3\u608b\ua72a\u8133\ub9ed\u417c\u3be7\u7786\u5964\3+\u016f\4\2\t\2\4"+
 		"\3\t\3\4\4\t\4\4\5\t\5\4\6\t\6\4\7\t\7\4\b\t\b\4\t\t\t\4\n\t\n\4\13\t"+
 		"\13\4\f\t\f\4\r\t\r\4\16\t\16\4\17\t\17\4\20\t\20\4\21\t\21\4\22\t\22"+
 		"\4\23\t\23\4\24\t\24\4\25\t\25\4\26\t\26\4\27\t\27\3\2\3\2\3\2\3\2\3\2"+
@@ -1861,13 +1896,14 @@ public class CmmParser extends Parser {
 		"\23\3\23\3\24\3\24\3\24\3\24\3\24\3\24\3\24\3\24\3\24\5\24\u0141\n\24"+
 		"\3\25\3\25\3\25\3\25\3\25\3\25\3\25\5\25\u014a\n\25\3\25\3\25\3\26\3\26"+
 		"\3\26\3\26\3\26\3\26\3\26\5\26\u0155\n\26\3\26\3\26\3\27\3\27\3\27\3\27"+
-		"\3\27\7\27\u015e\n\27\f\27\16\27\u0161\13\27\3\27\2\3\b\30\2\4\6\b\n\f"+
+		"\3\27\3\27\5\27\u015f\n\27\3\27\3\27\3\27\3\27\3\27\3\27\3\27\5\27\u0168"+
+		"\n\27\7\27\u016a\n\27\f\27\16\27\u016d\13\27\3\27\2\3\b\30\2\4\6\b\n\f"+
 		"\16\20\22\24\26\30\32\34\36 \"$&(*,\2\6\3\2\13\r\4\2\n\n\16\16\3\2\17"+
-		"\24\3\2\26\27\2\u0177\2:\3\2\2\2\4Y\3\2\2\2\6[\3\2\2\2\b\u0083\3\2\2\2"+
+		"\24\3\2\26\27\2\u0185\2:\3\2\2\2\4Y\3\2\2\2\6[\3\2\2\2\b\u0083\3\2\2\2"+
 		"\n\u00ac\3\2\2\2\f\u00ae\3\2\2\2\16\u00c3\3\2\2\2\20\u00d2\3\2\2\2\22"+
 		"\u00d4\3\2\2\2\24\u00e6\3\2\2\2\26\u00e8\3\2\2\2\30\u00ed\3\2\2\2\32\u00f2"+
 		"\3\2\2\2\34\u00ff\3\2\2\2\36\u0105\3\2\2\2 \u0113\3\2\2\2\"\u0116\3\2"+
-		"\2\2$\u0124\3\2\2\2&\u0137\3\2\2\2(\u0142\3\2\2\2*\u014d\3\2\2\2,\u0158"+
+		"\2\2$\u0124\3\2\2\2&\u0137\3\2\2\2(\u0142\3\2\2\2*\u014d\3\2\2\2,\u015e"+
 		"\3\2\2\2./\5\f\7\2/\60\b\2\1\2\609\3\2\2\2\61\62\5\6\4\2\62\63\b\2\1\2"+
 		"\63\64\7\3\2\2\649\3\2\2\2\65\66\5\36\20\2\66\67\b\2\1\2\679\3\2\2\28"+
 		".\3\2\2\28\61\3\2\2\28\65\3\2\2\29<\3\2\2\2:8\3\2\2\2:;\3\2\2\2;\3\3\2"+
@@ -1951,12 +1987,16 @@ public class CmmParser extends Parser {
 		"\u014d\u0154\7%\2\2\u014e\u014f\5,\27\2\u014f\u0150\b\26\1\2\u0150\u0155"+
 		"\3\2\2\2\u0151\u0152\5\22\n\2\u0152\u0153\b\26\1\2\u0153\u0155\3\2\2\2"+
 		"\u0154\u014e\3\2\2\2\u0154\u0151\3\2\2\2\u0155\u0156\3\2\2\2\u0156\u0157"+
-		"\7\3\2\2\u0157+\3\2\2\2\u0158\u0159\7+\2\2\u0159\u015f\b\27\1\2\u015a"+
-		"\u015b\7\4\2\2\u015b\u015c\7+\2\2\u015c\u015e\b\27\1\2\u015d\u015a\3\2"+
-		"\2\2\u015e\u0161\3\2\2\2\u015f\u015d\3\2\2\2\u015f\u0160\3\2\2\2\u0160"+
-		"-\3\2\2\2\u0161\u015f\3\2\2\2\328:Yb\u0083\u009f\u00a1\u00ac\u00b5\u00c1"+
+		"\7\3\2\2\u0157+\3\2\2\2\u0158\u0159\5\b\5\2\u0159\u015a\b\27\1\2\u015a"+
+		"\u015f\3\2\2\2\u015b\u015c\5\22\n\2\u015c\u015d\b\27\1\2\u015d\u015f\3"+
+		"\2\2\2\u015e\u0158\3\2\2\2\u015e\u015b\3\2\2\2\u015f\u016b\3\2\2\2\u0160"+
+		"\u0167\7\4\2\2\u0161\u0162\5\b\5\2\u0162\u0163\b\27\1\2\u0163\u0168\3"+
+		"\2\2\2\u0164\u0165\5\22\n\2\u0165\u0166\b\27\1\2\u0166\u0168\3\2\2\2\u0167"+
+		"\u0161\3\2\2\2\u0167\u0164\3\2\2\2\u0168\u016a\3\2\2\2\u0169\u0160\3\2"+
+		"\2\2\u016a\u016d\3\2\2\2\u016b\u0169\3\2\2\2\u016b\u016c\3\2\2\2\u016c"+
+		"-\3\2\2\2\u016d\u016b\3\2\2\2\348:Yb\u0083\u009f\u00a1\u00ac\u00b5\u00c1"+
 		"\u00c3\u00cf\u00d2\u00e3\u00e6\u00fa\u0113\u0122\u0130\u0133\u0140\u0149"+
-		"\u0154\u015f";
+		"\u0154\u015e\u0167\u016b";
 	public static final ATN _ATN =
 		new ATNDeserializer().deserialize(_serializedATN.toCharArray());
 	static {

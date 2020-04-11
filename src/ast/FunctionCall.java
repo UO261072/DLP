@@ -13,7 +13,7 @@ public class FunctionCall extends AbstractASTNode implements Expression, Stateme
 	private boolean LValue;
 	
 	public FunctionCall(int line, int column, Variable function, List<Expression> args) {
-		super(line, column);
+		super(function.getLine(), function.getColumn());
 		this.function = function;
 		this.args = args;
 	}
