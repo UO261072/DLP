@@ -40,9 +40,9 @@ public class VisitorIdentification extends AbstractVisitor implements Visitor {
 
     @Override
     public Object visit(Variable a, Type p) {
-        if(st.find(a.getNombre())==null)
-            new ErrorType(a.getLine(),a.getColumn(),"Esta variable no ha sido definida");
-        else
+        if(st.find(a.getNombre())!=null)
+           // new ErrorType(a.getLine(),a.getColumn(),"La variable "+ a.getNombre()+" no ha sido definida");
+       // else
             a.definition=st.find(a.getNombre());
         return super.visit(a, p);
     }

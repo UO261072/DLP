@@ -36,7 +36,7 @@ grammar Cmm;
        |CHAR_CONSTANT {$ast= new LiteralCharacter($CHAR_CONSTANT.getLine(),$CHAR_CONSTANT.getCharPositionInLine(),(char)CHAR_CONSTANT);}
        |'('primitiveType')'expr {$ast= new Cast(0,0,$expr.ast,$primitiveType.ast);}
        |e1=expr '['e2=expr']' {$ast=new AccesoArray(0,0,$e1.ast,$e2.ast);}
-       |ID '.' e2=expr  {$ast=new AccesoCampos(0,0,$ID.text,$e2.ast);}
+       |ID '.' e2=expr  {$ast=new AccesoCampos(0,0,new Variable($ID.getLine(),$ID.getCharPositionInLine(),$ID.text),$e2.ast);}
        |'-' expr {$ast= new MenosUnario(0,0,$expr.ast);}
        |e1=expr s=('/'|'*'|'%') e2=expr{$ast= new Aritmetic(0,0,$s.text,$e1.ast,$e2.ast);}
        |e1=expr s=('+'|'-') e2=expr{$ast= new Aritmetic(0,0,$s.text,$e1.ast,$e2.ast);}
@@ -113,7 +113,7 @@ grammar Cmm;
        si returns[If ast]:'if''('expr')'(('{'funbody{$ast=new If(0,0,$expr.ast,$funbody.ast,null);}'}'|statement{
         List<ast.statements.Statement> l=new ArrayList<Statement>();
         l.add($statement.ast);
-        $ast=new If(0,0,$expr.ast,l,null);}) si_no?{$ast.setDoElse($si_no.ast);});
+        $ast=new If(0,0,$expr.ast,l,null);}) (si_no{$ast.setDoElse($si_no.ast);})?);
 
        si_no returns[List<ast.statements.Statement> ast]:'else'('{'funbody{$ast=new ArrayList<Statement>();$ast.addAll($funbody.ast);}'}'|statement{
        List<ast.statements.Statement> l=new ArrayList<Statement>();

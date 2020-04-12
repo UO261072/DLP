@@ -7,12 +7,12 @@ import ast.expressions.Expression;
 
 public class AccesoCampos extends AbstractExpression implements Expression {
 
-	private String nombre;
+	private Variable nombre;
 	private Expression expression;
 	private boolean LValue;
 	
-	public AccesoCampos(int line, int column, String nombre, Expression expression) {
-		super(line, column);
+	public AccesoCampos(int line, int column, Variable nombre, Expression expression) {
+		super(nombre.getLine(), nombre.getColumn());
 		this.nombre = nombre;
 		this.expression = expression;
 	}
@@ -22,11 +22,11 @@ public class AccesoCampos extends AbstractExpression implements Expression {
 		return null;
 	}
 
-	public String getNombre() {
+	public Variable getNombre() {
 		return nombre;
 	}
 
-	public void setNombre(String nombre) {
+	public void setNombre(Variable nombre) {
 		this.nombre = nombre;
 	}
 
