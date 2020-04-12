@@ -51,6 +51,7 @@ public abstract class AbstractVisitor implements Visitor {
         return null;
     }
 
+
     @Override
     public Object visit(Logic a, Type p) {
         a.getLeft().accept(this,p);

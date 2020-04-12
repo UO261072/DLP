@@ -11,10 +11,7 @@ import ast.expressions.literal.LiteralCharacter;
 import ast.expressions.literal.LiteralInteger;
 import ast.expressions.literal.LiteralReal;
 import ast.expressions.other.*;
-import ast.statements.Assignment;
-import ast.statements.If;
-import ast.statements.Read;
-import ast.statements.Return;
+import ast.statements.*;
 import ast.visitor.AbstractVisitor;
 import types.ErrorType;
 import types.Type;
@@ -72,6 +69,8 @@ public class VisitorLValue extends AbstractVisitor {
     public Object visit(Logic a, Type p) {
         super.visit(a, p);
         a.setLValue(false);
+
+        a.setType(a.getLeft().getType().logic(a.getRight().getType(),a));
         return null;
     }
 
@@ -129,6 +128,7 @@ public class VisitorLValue extends AbstractVisitor {
     public Object visit(MenosUnario a, Type p) {
         super.visit(a, p);
         a.setLValue(false);
+        a.setType(a.getExpression().getType().menosUnario(a));
         return null;
     }
 
@@ -136,6 +136,7 @@ public class VisitorLValue extends AbstractVisitor {
     public Object visit(Not a, Type p) {
         super.visit(a, p);
         a.setLValue(false);
+        a.setType(a.getExpression().getType().negate(a));
         return null;
     }
 
@@ -191,4 +192,23 @@ public class VisitorLValue extends AbstractVisitor {
         return null;
     }
 
+    @Override
+    public Object visit(While a, Type p) {
+        super.visit(a, p);
+        if(!a.getCondition().getType().isLogical())
+            new ErrorType(a.getLine(),a.getColumn(),"La condicion a de ser un entero");
+        return null;
+    }
+
+    @Override
+    public Object visit(Write a, Type p) {
+        super.visit(a, p);
+        for (int i=0;i<a.getList().size();i++)
+            if(     !(a.getList().get(i).getType() instanceof Integer)
+                    ||!(a.getList().get(i).getType() instanceof Real)
+                    ||!(a.getList().get(i).getType() instanceof Character))
+                if (!(a.getList().get(i).getType() instanceof ErrorType))
+                    new ErrorType(a.getLine(),a.getColumn(), "Solo se pueden escribir tipos basicos");
+        return null;
+    }
 }

@@ -12,7 +12,7 @@ public class While extends AbstractASTNode implements Statement {
 	private List<Statement> doWhile;
 	
 	public While(int line, int column, Expression condition, List<Statement> doWhile) {
-		super(line, column);
+		super(condition.getLine(), condition.getColumn());
 		this.condition = condition;
 		this.doWhile = doWhile;
 	}

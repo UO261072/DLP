@@ -11,7 +11,7 @@ public class Not extends AbstractExpression implements Expression {
 	private boolean LValue;
 
 	public Not(int line, int column, Expression expression) {
-		super(line, column);
+		super(expression.getLine(), expression.getColumn());
 		this.expression = expression;
 	}
 	@Override

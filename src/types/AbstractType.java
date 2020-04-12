@@ -33,7 +33,7 @@ public abstract class AbstractType implements Type {
 
     @Override
     public Type menosUnario(ASTNode node) {
-        return null;
+        return new ErrorType(node.getLine(),node.getColumn(),"No se puede transformar en negativo este tipo");
     }
 
     @Override
@@ -49,5 +49,20 @@ public abstract class AbstractType implements Type {
     @Override
     public Type acceso(String name,ASTNode node) {
         return new ErrorType(node.getLine(),node.getColumn(),"Este tipo no tiene campos a los que acceder");
+    }
+
+    @Override
+    public Type logic(Type t, ASTNode node) {
+        return new ErrorType(node.getLine(),node.getColumn(),"Este tipo no permite operaciones logicas");
+    }
+
+    @Override
+    public Type negate(ASTNode node) {
+        return new ErrorType(node.getLine(),node.getColumn(),"No se puede negar este tipo");
+    }
+
+    @Override
+    public Type comparation(Type t, ASTNode node) {
+        return new ErrorType(node.getLine(),node.getColumn(),"No se pueden comparar estos tipos");
     }
 }

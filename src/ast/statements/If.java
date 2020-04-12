@@ -14,7 +14,7 @@ public class If extends AbstractASTNode implements Statement {
 
 	
 	public If(int line, int column, Expression condition, List<Statement> doIf, List<Statement> doElse) {
-		super(line, column);
+		super(condition.getLine(), condition.getColumn());
 		this.condition = condition;
 		this.doIf = doIf;
 		this.doElse = doElse;

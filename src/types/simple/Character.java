@@ -27,4 +27,5 @@ public class Character extends AbstractType implements Type {
             return this;
         return super.assgination(t, node);
     }
+
 }

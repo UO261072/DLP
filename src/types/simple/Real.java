@@ -36,4 +36,14 @@ public class Real extends AbstractType implements Type {
             return this;
         return super.assgination(t, node);
     }
+    @Override
+    public Type comparation(Type t, ASTNode node) {
+        if(t instanceof Integer||t instanceof Real)
+            return Integer.getInstance();
+        return super.comparation(t, node);
+    }
+    @Override
+    public Type menosUnario(ASTNode node) {
+        return this;
+    }
 }

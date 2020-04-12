@@ -11,7 +11,7 @@ public class Write extends AbstractASTNode implements Statement {
 	private List<Expression> list;
 
 	public Write(int line, int column, List<Expression> list) {
-		super(line, column);
+		super(list.get(0).getLine(), list.get(0).getColumn());
 		this.list = list;
 	}
 	@Override

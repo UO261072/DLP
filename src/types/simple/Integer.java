@@ -41,4 +41,33 @@ public class Integer extends AbstractType implements Type {
             return this;
         return super.assgination(t, node);
     }
+
+    @Override
+    public Type logic(Type t, ASTNode node) {
+
+        if(t instanceof ErrorType)
+            return t;
+        if(t instanceof Integer||t instanceof Real||t instanceof Character)
+            return Integer.getInstance();
+
+
+        return super.logic(t, node);
+    }
+
+    @Override
+    public Type negate(ASTNode node) {
+        return this;
+    }
+
+    @Override
+    public Type comparation(Type t, ASTNode node) {
+        if(t instanceof Integer||t instanceof Real)
+            return Integer.getInstance();
+        return super.comparation(t, node);
+    }
+
+    @Override
+    public Type menosUnario(ASTNode node) {
+        return this;
+    }
 }

@@ -22,4 +22,10 @@ public interface Type  {
     Type correctStruct(ASTNode node);
 
     Type acceso(String name,ASTNode node);
+
+    Type logic(Type t,ASTNode ast);
+
+    Type negate(ASTNode node);
+
+    Type comparation(Type t,ASTNode node);
 }
