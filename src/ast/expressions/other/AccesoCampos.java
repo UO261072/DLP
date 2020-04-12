@@ -1,10 +1,11 @@
 package ast.expressions.other;
 
 import ast.AbstractASTNode;
+import ast.expressions.AbstractExpression;
 import ast.visitor.Visitor;
 import ast.expressions.Expression;
 
-public class AccesoCampos extends AbstractASTNode implements Expression {
+public class AccesoCampos extends AbstractExpression implements Expression {
 
 	private String nombre;
 	private Expression expression;

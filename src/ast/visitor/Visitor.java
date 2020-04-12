@@ -13,30 +13,31 @@ import ast.expressions.literal.LiteralInteger;
 import ast.expressions.literal.LiteralReal;
 import ast.expressions.other.*;
 import ast.statements.*;
+import types.Type;
 
 public interface Visitor {
 
 
-    public Object visit(FunDef a, Object p);
-    public Object visit(VarDef a, Object p);
-    public Object visit(Aritmetic a,Object p);
-    public Object visit(Comparation a, Object p);
-    public Object visit(Logic a, Object p);
-    public Object visit(LiteralInteger a, Object p);
-    public Object visit(LiteralCharacter a, Object p);
-    public Object visit(LiteralReal a, Object p);
-    public Object visit(AccesoArray a, Object p);
-    public Object visit(AccesoCampos a, Object p);
-    public Object visit(Cast a, Object p);
-    public Object visit(MenosUnario a, Object p);
-    public Object visit(Not a, Object p);
-    public Object visit(Variable a, Object p);
-    public Object visit(Assignment a, Object p);
-    public Object visit(If a, Object p);
-    public Object visit(Read a, Object p);
-    public Object visit(Return a, Object p);
-    public Object visit(While a, Object p);
-    public Object visit(Write a, Object p);
-    public Object visit(FunctionCall a, Object p);
-    public Object visit(Program a, Object p);
+    public Object visit(FunDef a,Type param);
+    public Object visit(VarDef a, Type param);
+    public Object visit(Aritmetic a,Type param);
+    public Object visit(Comparation a, Type param);
+    public Object visit(Logic a, Type param);
+    public Object visit(LiteralInteger a,Type param);
+    public Object visit(LiteralCharacter a, Type param);
+    public Object visit(LiteralReal a, Type param);
+    public Object visit(AccesoArray a, Type param);
+    public Object visit(AccesoCampos a, Type param);
+    public Object visit(Cast a, Type param);
+    public Object visit(MenosUnario a, Type param);
+    public Object visit(Not a,Type param);
+    public Object visit(Variable a, Type param);
+    public Object visit(Assignment a, Type param);
+    public Object visit(If a, Type param);
+    public Object visit(Read a, Type param);
+    public Object visit(Return a, Type param);
+    public Object visit(While a,Type param);
+    public Object visit(Write a, Type param);
+    public Object visit(FunctionCall a, Type param);
+    public Object visit(Program a, Type param);
 }

@@ -1,10 +1,11 @@
 package ast.expressions.literal;
 
 import ast.AbstractASTNode;
+import ast.expressions.AbstractExpression;
 import ast.visitor.Visitor;
 import ast.expressions.Expression;
 
-public class LiteralInteger extends AbstractASTNode implements Expression {
+public class LiteralInteger extends AbstractExpression implements Expression {
 
 	private int value;
 	private boolean LValue;

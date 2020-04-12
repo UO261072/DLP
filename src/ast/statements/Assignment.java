@@ -11,7 +11,8 @@ public class Assignment extends AbstractASTNode implements Statement {
 
 	
 	public Assignment(int line, int column, Expression left, Expression right) {
-		super(line, column);
+		super(left.getLine(), left.getColumn());
+
 		this.left = left;
 		this.right = right;
 	}

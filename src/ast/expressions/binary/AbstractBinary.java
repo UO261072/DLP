@@ -1,9 +1,10 @@
 package ast.expressions.binary;
 
 import ast.AbstractASTNode;
+import ast.expressions.AbstractExpression;
 import ast.expressions.Expression;
 
-public abstract class AbstractBinary extends AbstractASTNode implements Expression{
+public abstract class AbstractBinary extends AbstractExpression implements Expression{
 	
 	private String operator;
 	private Expression left;

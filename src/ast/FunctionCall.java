@@ -1,16 +1,19 @@
 package ast;
 import java.util.List;
 
+import ast.definitions.Definition;
+import ast.expressions.AbstractExpression;
 import ast.expressions.Expression;
 import ast.expressions.other.Variable;
 import ast.statements.Statement;
 import ast.visitor.Visitor;
 
-public class FunctionCall extends AbstractASTNode implements Expression, Statement {
+public class FunctionCall extends AbstractExpression implements Expression, Statement {
 
 	private Variable function;
 	private List<Expression> args;
 	private boolean LValue;
+	public Definition definition;
 	
 	public FunctionCall(int line, int column, Variable function, List<Expression> args) {
 		super(function.getLine(), function.getColumn());

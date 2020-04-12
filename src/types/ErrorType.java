@@ -2,15 +2,30 @@ package types;
 
 import ast.ASTNode;
 import ast.AbstractASTNode;
+import ast.ErrorHandler;
 import ast.visitor.Visitor;
 
-public class ErrorType  extends AbstractASTNode {
+public class ErrorType  extends AbstractType implements ASTNode {
 
     private String message;
+    int line;
+    int column;
 
     public ErrorType(int line, int column, String message) {
-        super(line, column);
+        this.line=line;
+        this.column=column;
         this.message = message;
+        ErrorHandler.getInstance().addError(this);
+    }
+
+    @Override
+    public int getLine() {
+        return line;
+    }
+
+    @Override
+    public int getColumn() {
+        return column;
     }
 
     @Override
