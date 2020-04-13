@@ -12,7 +12,7 @@ public class AccesoArray extends AbstractExpression implements Expression {
 	private boolean LValue;
 	
 	public AccesoArray(int line, int column, Expression array, Expression location) {
-		super(line, column);
+		super(array.getLine(), array.getColumn());
 		this.array = array;
 		this.location = location;
 	}

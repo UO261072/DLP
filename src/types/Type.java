@@ -15,7 +15,7 @@ public interface Type  {
 
     Type parentheisis(List<Expression> t, ASTNode node);
 
-    Type menosUnario(ASTNode node);//TODO Pendiente
+    Type menosUnario(ASTNode node);
 
     Type assgination(Type t,ASTNode node);
 

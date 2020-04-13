@@ -18,6 +18,7 @@ grammar Cmm;
        fundef {$ast.addDefinition($fundef.ast);}
        |(vardef {$ast.addDefinition($vardef.ast);
        $ast.addDefinitions($vardef.astl);}';')|
+       array{$ast.addDefinition($array.ast);}|
        struct{$ast.addDefinition($struct.ast);})*;
 
        statement returns [ast.statements.Statement ast]: (asignation{$ast=$asignation.ast;}|(funinv{$ast=$funinv.ast;}';')|devuelve{$ast=$devuelve.ast;}|struct{$ast=$struct.ast;}|array{$ast=$array.ast;}|write{$ast=$write.ast;}|read{$ast=$read.ast;}|mientras{$ast=$mientras.ast;}|si{$ast=$si.ast;})
@@ -72,7 +73,7 @@ grammar Cmm;
 
        ;
 
-       funinv returns[FunctionCall ast]: ID '('args')'{$ast=new FunctionCall(0,0,new Variable(0,0,$ID.text),$args.ast);};
+       funinv returns[FunctionCall ast]: ID '('args')'{$ast=new FunctionCall(0,0,new Variable($ID.getLine(),$ID.getCharPositionInLine(),$ID.text),$args.ast);};
 
        args returns[List<Expression> ast=new ArrayList<Expression>()]: (|e1=expr{$ast.add($e1.ast);} (',' e2=expr{$ast.add($e2.ast);})*);
 
@@ -90,7 +91,7 @@ grammar Cmm;
         $ast=a;
         };
 
-       asignation returns[Assignment ast]: e1=expr '=' e2=expr {$ast=new Assignment(0,0,$e1.ast,$e2.ast);}';';
+       asignation returns[Assignment ast]: e1=expr '=' (e2=expr {$ast=new Assignment(0,0,$e1.ast,$e2.ast);}|funinv{$ast=new Assignment(0,0,$e1.ast,$funinv.ast);})';';
 
        struct returns[VarDef ast]: 'struct' '{' structComponents'}' ID ';'{
        RecordType rt=new RecordType($structComponents.ast);

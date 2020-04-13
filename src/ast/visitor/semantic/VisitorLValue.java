@@ -102,7 +102,7 @@ public class VisitorLValue extends AbstractVisitor {
     public Object visit(AccesoArray a, Type p) {
         super.visit(a, p);
         a.setLValue(true);
-        a.setType(a.getType().indexing(a.getLocation().getType(),a));
+        a.setType(a.getArray().getType().indexing(a.getLocation().getType(),a));
         return null;
     }
 
@@ -165,6 +165,8 @@ public class VisitorLValue extends AbstractVisitor {
     @Override
     public Object visit(Assignment a, Type p) {
         super.visit(a,p);
+        if(a.getRight().getType() instanceof ErrorType||a.getLeft().getType() instanceof ErrorType)
+            return null;
         if(!a.getLeft().isLValue()){
             new ErrorType(a.getLeft().getLine(),a.getLeft().getColumn(),"No se le puede asignar un valor a esto");
         }

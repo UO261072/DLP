@@ -39,6 +39,6 @@ public class LexerHelper {
 		return ' ';
 	}
 
-	// TODO: Implement the lexemeToChar and lexemeToReal methods
+
 
 }
