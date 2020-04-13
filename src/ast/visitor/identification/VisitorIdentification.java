@@ -38,6 +38,7 @@ public class VisitorIdentification extends AbstractVisitor implements Visitor {
         return null;
     }
 
+
     @Override
     public Object visit(Variable a, Type p) {
         if(st.find(a.getNombre())!=null)
