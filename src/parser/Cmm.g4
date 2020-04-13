@@ -47,9 +47,9 @@ grammar Cmm;
        ;
 
 
-       primitiveType returns[Type ast]: 'int'{$ast=new types.simple.Integer();}
-       |'char'{$ast=new types.simple.Character();}
-       |'double'{$ast=new Real();}
+       primitiveType returns[Type ast]: 'int'{$ast=types.simple.Integer.getInstance();}
+       |'char'{$ast=types.simple.Character.getInstance();}
+       |'double'{$ast=types.simple.Real.getInstance();}
        |'void'{$ast=new types.simple.Void();};
 
 

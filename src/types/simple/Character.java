@@ -15,7 +15,7 @@ public class Character extends AbstractType implements Type {
             instance=new Character();
         return instance;
     }
-    public Character(){
+    private Character(){
         super();
     }
 
@@ -23,7 +23,7 @@ public class Character extends AbstractType implements Type {
     public Type assgination(Type t, ASTNode node) {
         if(t instanceof ErrorType)
             return t;
-        if(t==this)
+        if(t instanceof Character)
             return this;
         return super.assgination(t, node);
     }

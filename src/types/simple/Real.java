@@ -15,7 +15,7 @@ public class Real extends AbstractType implements Type {
             instance=new Real();
         return instance;
     }
-    public Real(){
+    private Real(){
         super();
     }
 
@@ -23,7 +23,7 @@ public class Real extends AbstractType implements Type {
     public Type arithmetic(Type t, ASTNode node) {
         if(t instanceof ErrorType)
             return t;
-        if(t==Real.getInstance())
+        if(t instanceof Real)
             return this;
         return super.arithmetic(t, node);
     }
@@ -32,7 +32,7 @@ public class Real extends AbstractType implements Type {
     public Type assgination(Type t, ASTNode node) {
         if(t instanceof ErrorType)
             return t;
-        if(t==this)
+        if(t instanceof Real)
             return this;
         return super.assgination(t, node);
     }

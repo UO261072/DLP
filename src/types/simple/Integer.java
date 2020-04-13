@@ -16,7 +16,7 @@ public class Integer extends AbstractType implements Type {
             instance=new Integer();
         return instance;
     }
-    public Integer(){
+    private Integer(){
         super();
     }
     @Override
@@ -28,7 +28,7 @@ public class Integer extends AbstractType implements Type {
     public Type arithmetic(Type t, ASTNode node) {
         if(t instanceof ErrorType)
             return t;
-        if(t==Integer.getInstance())
+        if(t instanceof Integer)
             return this;
         return super.arithmetic(t,node);
     }
@@ -37,7 +37,7 @@ public class Integer extends AbstractType implements Type {
     public Type assgination(Type t, ASTNode node) {
         if(t instanceof ErrorType)
             return t;
-        if(t==this)
+        if(t instanceof Integer)
             return this;
         return super.assgination(t, node);
     }

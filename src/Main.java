@@ -1,4 +1,5 @@
 import ast.Program;
+import ast.codeGeneration.OffsetVisitor;
 import ast.visitor.Visitor;
 import ast.visitor.identification.VisitorIdentification;
 import ast.visitor.semantic.VisitorLValue;
@@ -29,8 +30,10 @@ public class Main {
 		System.out.println("FINISHED");
 		Visitor v1=new VisitorIdentification();
 		Visitor v=new VisitorLValue();
+		Visitor v2=new OffsetVisitor();
 		v1.visit(p,null);
 		v.visit(p,null);
+		v2.visit(p,null);
 		if(ErrorHandler.getInstance().anyError()){
 			ErrorHandler.getInstance().showErrors();
 		}else {

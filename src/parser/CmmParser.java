@@ -708,7 +708,7 @@ public class CmmParser extends Parser {
 				{
 				setState(165);
 				match(T__21);
-				((PrimitiveTypeContext)_localctx).ast = new types.simple.Integer();
+				((PrimitiveTypeContext)_localctx).ast = types.simple.Integer.getInstance();
 				}
 				break;
 			case T__22:
@@ -716,7 +716,7 @@ public class CmmParser extends Parser {
 				{
 				setState(167);
 				match(T__22);
-				((PrimitiveTypeContext)_localctx).ast = new types.simple.Character();
+				((PrimitiveTypeContext)_localctx).ast = types.simple.Character.getInstance();
 				}
 				break;
 			case T__23:
@@ -724,7 +724,7 @@ public class CmmParser extends Parser {
 				{
 				setState(169);
 				match(T__23);
-				((PrimitiveTypeContext)_localctx).ast = new Real();
+				((PrimitiveTypeContext)_localctx).ast = types.simple.Real.getInstance();
 				}
 				break;
 			case T__24:
