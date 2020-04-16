@@ -7,6 +7,7 @@ public class VarDef extends AbstractDefinition implements Statement {
 
 	private int scope;
 	private int offset;
+	private boolean param=false;
 	
 	public VarDef(int line, int column, String name, Type type) {
 		super(line, column, name, type);
@@ -16,7 +17,7 @@ public class VarDef extends AbstractDefinition implements Statement {
 
 	@Override
 	public Object accept(Visitor v, Object o) {
-		v.visit(this,null);
+		v.visit(this,(Type) o);
 		return null;
 	}
 
@@ -35,4 +36,8 @@ public class VarDef extends AbstractDefinition implements Statement {
 	public void setOffset(int offset) {
 		this.offset = offset;
 	}
+
+	public boolean isParam(){return param;}
+
+	public void setParam(boolean param){this.param=param;}
 }

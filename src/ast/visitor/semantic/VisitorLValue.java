@@ -39,6 +39,8 @@ public class VisitorLValue extends AbstractVisitor {
             a.setType(new ErrorType(a.getLine(),a.getColumn(),"No se pueden crear variables de tipo void"));
         if(a.getType() instanceof RecordType)
             a.getType().correctStruct(a);
+        if(p==Real.getInstance())
+            a.setParam(true);
         return super.visit(a, p);
     }
 

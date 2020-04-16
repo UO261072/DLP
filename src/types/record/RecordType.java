@@ -25,6 +25,14 @@ public class RecordType extends AbstractType implements Type {
 	}
 
 	@Override
+	public int size() {
+		int size=0;
+		for(RecordField f:components)
+			size+=f.getType().size();
+		return size;
+	}
+
+	@Override
 	public Type correctStruct(ASTNode node) {
 		for(int i=0;i<components.size();i++){
 			for(int j=i+1;j<components.size();j++){

@@ -4,6 +4,7 @@ import ast.definitions.FunDef;
 import ast.definitions.VarDef;
 import ast.visitor.AbstractVisitor;
 import types.Type;
+import types.record.RecordType;
 import types.simple.Character;
 import types.simple.Integer;
 import types.simple.Real;
@@ -27,28 +28,29 @@ public class OffsetVisitor extends AbstractVisitor {
         super.visit(a, p);
         if (scope == 0){
             a.setOffset(prevSize);
-            if(a.getType()== Integer.getInstance())
-                prevSize+=2;
-            if (a.getType()== Real.getInstance())
-                prevSize+=4;
-            if (a.getType()== Character.getInstance())
-                prevSize+=1;
+            prevSize+=a.getType().size();
         }
         else if(scope>0){
-            if(a.getType()== Integer.getInstance()) {
-                prevSize += 2;
-                a.setOffset(-prevSize);
-            }
-            if (a.getType()== Real.getInstance()) {
-                prevSize += 4;
-                a.setOffset(-prevSize);
-            }
-            if (a.getType()== Character.getInstance()) {
-                prevSize += 1;
-                a.setOffset(-prevSize);
+            if(a.isParam()) {
+                if(prevSize==0)
+                    prevSize=4;
+
+
+                a.setOffset(prevSize);
+                prevSize+=a.getType().size();
+
+
+            }else {
+                if(prevSize>0)
+                    prevSize=0;
+
+                    prevSize-=a.getType().size();
+                    a.setOffset(prevSize);
+
             }
         }
 
+        System.out.println(a.getName()+" "+a.getOffset());
         return null;
     }
 

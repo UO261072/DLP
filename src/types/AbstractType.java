@@ -27,6 +27,11 @@ public abstract class AbstractType implements Type {
     }
 
     @Override
+    public int size() {
+        return 0;
+    }
+
+    @Override
     public Type parentheisis(List<Expression> t, ASTNode node) {
         return new ErrorType(node.getLine(),node.getColumn(),"No se puede invocar una funcion de este tipo");
     }

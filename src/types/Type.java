@@ -7,6 +7,8 @@ import java.util.List;
 
 public interface Type  {
 
+    int size();
+
     boolean isLogical();
 
     Type arithmetic(Type t,ASTNode node);

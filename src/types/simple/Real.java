@@ -46,4 +46,9 @@ public class Real extends AbstractType implements Type {
     public Type menosUnario(ASTNode node) {
         return this;
     }
+
+    @Override
+    public int size() {
+        return 4;
+    }
 }

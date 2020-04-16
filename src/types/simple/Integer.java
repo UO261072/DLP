@@ -70,4 +70,9 @@ public class Integer extends AbstractType implements Type {
     public Type menosUnario(ASTNode node) {
         return this;
     }
+
+    @Override
+    public int size() {
+        return 2;
+    }
 }

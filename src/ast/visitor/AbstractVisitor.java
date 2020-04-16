@@ -17,14 +17,17 @@ import com.sun.org.apache.xpath.internal.compiler.FunctionTable;
 import types.ErrorType;
 import types.Type;
 import types.complex.FunctionType;
+import types.simple.Integer;
+import types.simple.Real;
+import types.simple.Void;
 
 public abstract class AbstractVisitor implements Visitor {
 
 
     @Override
     public Object visit(FunDef a, Type p) {
-        for(int i=0;i<((FunctionType)a.getType()).getParam().size();i++){
-            ((FunctionType)a.getType()).getParam().get(i).accept(this,p);
+        for(int i=((FunctionType)a.getType()).getParam().size()-1;i>=0;i--){
+            ((FunctionType)a.getType()).getParam().get(i).accept(this, Real.getInstance());
         }
         for(int i=0;i<a.getSentences().size();i++){
             a.getSentences().get(i).accept(this,p);
