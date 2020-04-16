@@ -4,6 +4,7 @@ import ast.definitions.FunDef;
 import ast.definitions.VarDef;
 import ast.visitor.AbstractVisitor;
 import types.Type;
+import types.record.RecordField;
 import types.record.RecordType;
 import types.simple.Character;
 import types.simple.Integer;
@@ -49,7 +50,14 @@ public class OffsetVisitor extends AbstractVisitor {
 
             }
         }
-
+        if(a.getType() instanceof RecordType){
+            int i=0;
+            for (RecordField rf:((RecordType) a.getType()).getComponents()){
+                rf.setOffset(i);
+                i+=rf.getType().size();
+                System.out.println(a.getName()+"."+rf.getName()+" "+rf.getOffset());
+            }
+        }
         System.out.println(a.getName()+" "+a.getOffset());
         return null;
     }
