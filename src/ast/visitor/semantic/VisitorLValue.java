@@ -16,11 +16,14 @@ import ast.visitor.AbstractVisitor;
 import types.ErrorType;
 import types.Type;
 import types.complex.FunctionType;
+import types.record.RecordField;
 import types.record.RecordType;
 import types.simple.Character;
 import types.simple.Integer;
 import types.simple.Real;
 import types.simple.Void;
+
+import java.lang.reflect.Field;
 
 public class VisitorLValue extends AbstractVisitor {
 
@@ -110,10 +113,12 @@ public class VisitorLValue extends AbstractVisitor {
     public Object visit(AccesoCampos a, Type p) {
         super.visit(a, p);
         a.setLValue(true);
-        if(a.getExpression() instanceof Variable)
+        if(a.getExpression() instanceof Variable){
             a.setType(a.getNombre().definition.getType().acceso(((Variable)a.getExpression()).getNombre(),a));
-        else
-            new ErrorType(a.getLine(),a.getColumn(),"No se puede acceder a un campo que no sea una variable");
+        }
+        else {
+            new ErrorType(a.getLine(), a.getColumn(), "No se puede acceder a un campo que no sea una variable");
+        }
         return null;
     }
 
@@ -144,10 +149,17 @@ public class VisitorLValue extends AbstractVisitor {
     public Object visit(Variable a, Type p) {
         super.visit(a, p);
         a.setLValue(true);
-        if (a.definition==null)
-            a.setType(new ErrorType(a.getLine(),a.getColumn(),"La variable "+a.getNombre()+" no esta definida"));
-        else
-            a.setType(a.definition.getType());
+        if (p instanceof  RecordType){
+            for(RecordField rf:((RecordType) p).getComponents()){
+                a.setType(rf.getType());
+            }
+        }
+        else {
+            if (a.definition == null)
+                a.setType(new ErrorType(a.getLine(), a.getColumn(), "La variable " + a.getNombre() + " no esta definida"));
+            else
+                a.setType(a.definition.getType());
+        }
         return null;
     }
 

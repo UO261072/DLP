@@ -16,6 +16,14 @@ public class RecordType extends AbstractType implements Type {
 		this.components = components;
 	}
 
+	public List<RecordField> getComponents() {
+		return components;
+	}
+
+	public void setComponents(List<RecordField> components) {
+		this.components = components;
+	}
+
 	@Override
 	public Type correctStruct(ASTNode node) {
 		for(int i=0;i<components.size();i++){

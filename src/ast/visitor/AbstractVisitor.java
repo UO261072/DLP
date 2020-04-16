@@ -84,7 +84,7 @@ public abstract class AbstractVisitor implements Visitor {
     @Override
     public Object visit(AccesoCampos a, Type p) {
         a.getNombre().accept(this,p);
-        a.getExpression().accept(this,p);
+        //a.getExpression().accept(this,p);
         return null;
     }
 

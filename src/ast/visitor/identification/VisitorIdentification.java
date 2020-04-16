@@ -11,6 +11,7 @@ import ast.visitor.Visitor;
 import simbolTable.SymbolTable;
 import types.ErrorType;
 import types.Type;
+import types.record.RecordType;
 
 public class VisitorIdentification extends AbstractVisitor implements Visitor {
     private SymbolTable st=new SymbolTable();
