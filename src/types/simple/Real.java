@@ -51,4 +51,9 @@ public class Real extends AbstractType implements Type {
     public int size() {
         return 4;
     }
+
+    @Override
+    public String suffix() {
+        return "f";
+    }
 }

@@ -27,6 +27,11 @@ public abstract class AbstractType implements Type {
     }
 
     @Override
+    public String suffix() {
+        throw new IllegalArgumentException();
+    }
+
+    @Override
     public int size() {
         return 0;
     }

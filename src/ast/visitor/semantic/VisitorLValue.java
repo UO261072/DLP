@@ -67,6 +67,8 @@ public class VisitorLValue extends AbstractVisitor {
     public Object visit(Comparation a, Type p) {
         super.visit(a, p);
         a.setLValue(false);
+
+        a.setType(a.getLeft().getType().comparation(a.getRight().getType(),a));
         return null;
     }
 
@@ -221,8 +223,8 @@ public class VisitorLValue extends AbstractVisitor {
         super.visit(a, p);
         for (int i=0;i<a.getList().size();i++)
             if(     !(a.getList().get(i).getType() instanceof Integer)
-                    ||!(a.getList().get(i).getType() instanceof Real)
-                    ||!(a.getList().get(i).getType() instanceof Character))
+                    &&!(a.getList().get(i).getType() instanceof Real)
+                    &&!(a.getList().get(i).getType() instanceof Character))
                 if (!(a.getList().get(i).getType() instanceof ErrorType))
                     new ErrorType(a.getLine(),a.getColumn(), "Solo se pueden escribir tipos basicos");
         return null;

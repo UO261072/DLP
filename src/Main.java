@@ -33,12 +33,13 @@ public class Main {
 		Visitor v2=new OffsetVisitor();
 		v1.visit(p,null);
 		v.visit(p,null);
-		v2.visit(p,null);
+		//v2.visit(p,null);
 		if(ErrorHandler.getInstance().anyError()){
 			ErrorHandler.getInstance().showErrors();
 		}else {
-			IntrospectorModel model = new IntrospectorModel("Program", p);
-			new IntrospectorTree("Tree", model);
+			/*IntrospectorModel model = new IntrospectorModel("Program", p);
+			new IntrospectorTree("Tree", model);*/
+			v2.visit(p,null);
 		}
 	}
 	

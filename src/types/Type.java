@@ -11,6 +11,8 @@ public interface Type  {
 
     boolean isLogical();
 
+    String suffix();
+
     Type arithmetic(Type t,ASTNode node);
 
     Type indexing(Type t, ASTNode node);

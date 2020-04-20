@@ -19,6 +19,12 @@ public class Integer extends AbstractType implements Type {
     private Integer(){
         super();
     }
+
+    @Override
+    public String suffix() {
+        return "i";
+    }
+
     @Override
     public boolean isLogical() {
         return true;

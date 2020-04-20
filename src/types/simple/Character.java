@@ -33,4 +33,8 @@ public class Character extends AbstractType implements Type {
         return 1;
     }
 
+    @Override
+    public String suffix() {
+        return "b";
+    }
 }
