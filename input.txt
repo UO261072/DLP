@@ -1,6 +1,7 @@
 char c;
 int a;
 double r;
+int[4][3][5]fa;
 
 void main() {
 	int a, i;

@@ -65,4 +65,50 @@ public class ExecuteCGVisitor extends AbstractCGVisitor{
     <ret 0,fundef.sumbyteslocalvar>
      */
 
+
+    /*
+    execute[[Aritmetic:expression -> expression:right expression:left]]()=
+    <push> right.getType().suffix() execute[right]
+    <push> left.getType().suffix() execute[left]
+    switch(expression.getOperator){
+        case '+':
+            <add> expression.getType().suffix()
+        break;
+        case '-':
+            <sub> expression.getType().suffix()
+        break;
+        case '*':
+            <mul> expression.getType().suffix()
+        break;
+        case '/':
+            <div> expression.getType().suffix()
+        break;
+    }
+     */
+    /*
+    execute[[Comparation:expression -> expression:right expression:left]]()=
+    <push> right.getType().suffix() execute[right]
+    <push> left.getType().suffix() execute[left]
+    switch(expression.getOperator){
+        case '>':
+            <gt> expression.getType().suffix()
+        break;
+        case '<':
+            <lt> expression.getType().suffix()
+        break;
+        case '>=':
+            <ge> expression.getType().suffix()
+        break;
+        case '<=':
+            <le> expression.getType().suffix()
+        break;
+        case '==':
+            <eq> expression.getType().suffix()
+        break;
+        case '!=':
+            <ne> expression.getType().suffix()
+        break;
+    }
+     */
+
 }

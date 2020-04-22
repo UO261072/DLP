@@ -37,8 +37,8 @@ public class Main {
 		if(ErrorHandler.getInstance().anyError()){
 			ErrorHandler.getInstance().showErrors();
 		}else {
-			/*IntrospectorModel model = new IntrospectorModel("Program", p);
-			new IntrospectorTree("Tree", model);*/
+			IntrospectorModel model = new IntrospectorModel("Program", p);
+			new IntrospectorTree("Tree", model);
 			v2.visit(p,null);
 		}
 	}

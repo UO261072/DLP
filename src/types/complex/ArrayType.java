@@ -16,6 +16,7 @@ public class ArrayType extends AbstractType implements Type {
 		super();
 		this.size = size;
 		this.type = type;
+		//ordenar();
 	}
 	@Override
 	public Type indexing(Type t, ASTNode node){
@@ -25,6 +26,31 @@ public class ArrayType extends AbstractType implements Type {
 			return this.type;
 		return super.indexing(t,node);
 	}
+
+	public int getSize() {
+		return size;
+	}
+
+	public void setSize(int size) {
+		this.size = size;
+	}
+
+	public Type getType() {
+		return type;
+	}
+
+	public void setType(Type type) {
+		this.type = type;
+	}
+
+	/*public void ordenar(){
+		if(this.type instanceof ArrayType){
+			int x=this.size;
+			this.size=((ArrayType)this.type).getSize();
+			((ArrayType)this.getType()).setSize(x);
+			((ArrayType)this.getType()).ordenar();
+		}
+	}*/
 
 
 
