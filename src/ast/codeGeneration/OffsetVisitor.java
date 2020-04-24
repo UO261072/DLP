@@ -20,6 +20,7 @@ public class OffsetVisitor extends AbstractVisitor {
         scope++;
         prevSize=0;
         super.visit(a, p);
+        a.setBytesLocalVar(-prevSize);
         scope--;
         return null;
     }

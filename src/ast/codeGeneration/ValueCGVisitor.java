@@ -6,7 +6,11 @@ public class ValueCGVisitor extends AbstractCGVisitor {
 
     public ValueCGVisitor(CG cg) {
         super(cg);
-        addressCGVisitor=new AddressCGVisitor(cg);
+
+        //addressCGVisitor=new AddressCGVisitor(cg);
+    }
+    public void setAddressCGVisitor(AddressCGVisitor addressCGVisitor){
+        this.addressCGVisitor=addressCGVisitor;
     }
 
 

@@ -13,14 +13,16 @@ import ast.statements.Assignment;
 import ast.statements.Read;
 import ast.statements.Write;
 import types.Type;
+import types.simple.Integer;
 
 public class AddressCGVisitor  extends AbstractCGVisitor{
 
     private ValueCGVisitor valueCGVisitor;
 
-    public AddressCGVisitor(CG cg) {
+    public AddressCGVisitor(CG cg,ValueCGVisitor valueCGVisitor) {
         super(cg);
-        valueCGVisitor=new ValueCGVisitor(cg);
+        this.valueCGVisitor=valueCGVisitor;
+        //valueCGVisitor=new ValueCGVisitor(cg);
     }
 
 /*
@@ -35,4 +37,17 @@ public class AddressCGVisitor  extends AbstractCGVisitor{
         <pusha>
 
      */
+
+    @Override
+    public Object visit(Variable a, Type param) {
+        if(a.definition.getScope()==0){
+            cg.pusha(a.definition.getOffset());
+        }else{
+            cg.pushi(a.definition.getOffset());
+            cg.pushbp();
+            cg.add(Integer.getInstance());
+            //cg.pusha();
+        }
+        return null;
+    }
 }

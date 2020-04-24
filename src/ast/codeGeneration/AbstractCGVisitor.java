@@ -30,112 +30,112 @@ public class AbstractCGVisitor implements Visitor {
 
     @Override
     public Object visit(FunDef a, Type param) {
-        return null;
+        throw new IllegalStateException("Code generation template \""+a.getClass()+"\" not defined for the code function" + this.getClass().getName());
     }
 
     @Override
     public Object visit(VarDef a, Type param) {
-        return null;
+        throw new IllegalStateException("Code generation template \""+a.getClass()+"\" not defined for the code function" + this.getClass().getName());
     }
 
     @Override
     public Object visit(Aritmetic a, Type param) {
-        return null;
+        throw new IllegalStateException("Code generation template \""+a.getClass()+"\" not defined for the code function" + this.getClass().getName());
     }
 
     @Override
     public Object visit(Comparation a, Type param) {
-        return null;
+        throw new IllegalStateException("Code generation template \""+a.getClass()+"\" not defined for the code function" + this.getClass().getName());
     }
 
     @Override
     public Object visit(Logic a, Type param) {
-        return null;
+        throw new IllegalStateException("Code generation template \""+a.getClass()+"\" not defined for the code function" + this.getClass().getName());
     }
 
     @Override
     public Object visit(LiteralInteger a, Type param) {
-        return null;
+        throw new IllegalStateException("Code generation template \""+a.getClass()+"\" not defined for the code function" + this.getClass().getName());
     }
 
     @Override
     public Object visit(LiteralCharacter a, Type param) {
-        return null;
+        throw new IllegalStateException("Code generation template \""+a.getClass()+"\" not defined for the code function" + this.getClass().getName());
     }
 
     @Override
     public Object visit(LiteralReal a, Type param) {
-        return null;
+        throw new IllegalStateException("Code generation template \""+a.getClass()+"\" not defined for the code function" + this.getClass().getName());
     }
 
     @Override
     public Object visit(AccesoArray a, Type param) {
-        return null;
+        throw new IllegalStateException("Code generation template \""+a.getClass()+"\" not defined for the code function" + this.getClass().getName());
     }
 
     @Override
     public Object visit(AccesoCampos a, Type param) {
-        return null;
+        throw new IllegalStateException("Code generation template \""+a.getClass()+"\" not defined for the code function" + this.getClass().getName());
     }
 
     @Override
     public Object visit(Cast a, Type param) {
-        return null;
+        throw new IllegalStateException("Code generation template \""+a.getClass()+"\" not defined for the code function" + this.getClass().getName());
     }
 
     @Override
     public Object visit(MenosUnario a, Type param) {
-        return null;
+        throw new IllegalStateException("Code generation template \""+a.getClass()+"\" not defined for the code function" + this.getClass().getName());
     }
 
     @Override
     public Object visit(Not a, Type param) {
-        return null;
+        throw new IllegalStateException("Code generation template \""+a.getClass()+"\" not defined for the code function" + this.getClass().getName());
     }
 
     @Override
     public Object visit(Variable a, Type param) {
-        return null;
+        throw new IllegalStateException("Code generation template \""+a.getClass()+"\" not defined for the code function" + this.getClass().getName());
     }
 
     @Override
     public Object visit(Assignment a, Type param) {
-        return null;
+        throw new IllegalStateException("Code generation template \""+a.getClass()+"\" not defined for the code function" + this.getClass().getName());
     }
 
     @Override
     public Object visit(If a, Type param) {
-        return null;
+        throw new IllegalStateException("Code generation template \""+a.getClass()+"\" not defined for the code function" + this.getClass().getName());
     }
 
     @Override
     public Object visit(Read a, Type param) {
-        return null;
+        throw new IllegalStateException("Code generation template \""+a.getClass()+"\" not defined for the code function" + this.getClass().getName());
     }
 
     @Override
     public Object visit(Return a, Type param) {
-        return null;
+        throw new IllegalStateException("Code generation template \""+a.getClass()+"\" not defined for the code function" + this.getClass().getName());
     }
 
     @Override
     public Object visit(While a, Type param) {
-        return null;
+        throw new IllegalStateException("Code generation template \""+a.getClass()+"\" not defined for the code function" + this.getClass().getName());
     }
 
     @Override
     public Object visit(Write a, Type param) {
-        return null;
+        throw new IllegalStateException("Code generation template \""+a.getClass()+"\" not defined for the code function" + this.getClass().getName());
     }
 
     @Override
     public Object visit(FunctionCall a, Type param) {
-        return null;
+        throw new IllegalStateException("Code generation template \""+a.getClass()+"\" not defined for the code function" + this.getClass().getName());
     }
 
     @Override
     public Object visit(Program a, Type param) {
-        return null;
+        throw new IllegalStateException("Code generation template \""+a.getClass()+"\" not defined for the code function" + this.getClass().getName());
     }
 
 
