@@ -5,6 +5,7 @@ import ast.Program;
 import ast.definitions.Definition;
 import ast.definitions.FunDef;
 import ast.definitions.VarDef;
+import ast.expressions.Expression;
 import ast.expressions.binary.Aritmetic;
 import ast.expressions.binary.Comparation;
 import ast.expressions.binary.Logic;
@@ -96,7 +97,8 @@ public class ExecuteCGVisitor extends AbstractCGVisitor{
                 s.accept(this,param);
         cg.enter(4);
         for(Statement s:a.getSentences())
-            s.accept(this,param);
+            if(!(s instanceof VarDef))
+                s.accept(this,param);
         if(((FunctionType) a.getType()).getReturnType() instanceof Void)
             cg.ret(0,a.getBytesLocalVar());
         return null;
@@ -123,8 +125,8 @@ public class ExecuteCGVisitor extends AbstractCGVisitor{
     }
     /*
         execute[[Aritmetic:expression -> expression:right expression:left]]()=
-        <push> right.getType().suffix() execute[right]
-        <push> left.getType().suffix() execute[left]
+        execute[right]
+        execute[left]
         switch(expression.getOperator){
             case '+':
                 <add> expression.getType().suffix()
@@ -142,7 +144,23 @@ public class ExecuteCGVisitor extends AbstractCGVisitor{
          */
     @Override
     public Object visit(Aritmetic a, Type param) {
-        return super.visit(a, param);
+        a.getLeft().accept(this,param);
+        a.getRight().accept(this,param);
+        switch (a.getOperator()) {
+            case "+":
+                cg.add(a.getType());
+                break;
+            case "-":
+                cg.sub(a.getType());
+                break;
+            case "*":
+                cg.mul(a.getType());
+                break;
+            case "/":
+                cg.div(a.getType());
+                break;
+        }
+        return null;
     }
     /*
         execute[[Comparation:expression -> expression:right expression:left]]()=
@@ -171,7 +189,29 @@ public class ExecuteCGVisitor extends AbstractCGVisitor{
          */
     @Override
     public Object visit(Comparation a, Type param) {
-        return super.visit(a, param);
+        a.getLeft().accept(this,param);
+        a.getRight().accept(this,param);
+        switch (a.getOperator()) {
+            case ">":
+                cg.gt(a.getType());
+                break;
+            case "<":
+                cg.lt(a.getType());
+                break;
+            case ">=":
+                cg.ge(a.getType());
+                break;
+            case "<=":
+                cg.le(a.getType());
+                break;
+            case "==":
+                cg.eq(a.getType());
+                break;
+            case "!=":
+                cg.ne(a.getType());
+                break;
+        }
+        return null;
     }
     /*
       execute[[Logic:expression -> expression:right expression:left]]()=
@@ -181,30 +221,56 @@ public class ExecuteCGVisitor extends AbstractCGVisitor{
           case '&&':
               <and>
           break;
-          case '<||':
+          case '||':
               <or>
           break;
        */
     @Override
     public Object visit(Logic a, Type param) {
-        return super.visit(a, param);
+        a.getLeft().accept(this,param);
+        a.getRight().accept(this,param);
+        switch (a.getOperator()) {
+            case "&&":
+                cg.and();
+                break;
+            case "||":
+                cg.or();
+                break;
+        }
+        return null;
     }
-
+    /*
+        execute[[LiteralInteger->value]]=
+        <push>LiteralInteger.getType().suffix value
+         */
     @Override
     public Object visit(LiteralInteger a, Type param) {
-        return super.visit(a, param);
+        cg.push(a.getValue());
+        return null;
     }
 
+    /*
+    execute[[LiteralCharacter->value]]=
+    <push>LiteralCharacter.getType().suffix value
+     */
     @Override
     public Object visit(LiteralCharacter a, Type param) {
-        return super.visit(a, param);
+        cg.push(a.getValue());
+        return null;
     }
-
+    /*
+        execute[[LiteralReal->value]]=
+        <push>LiteralReal.getType().suffix value
+         */
     @Override
     public Object visit(LiteralReal a, Type param) {
-        return super.visit(a, param);
+        cg.push(a.getValue());
+        return null;
     }
+        /*
+        execute[[AccesoArray]]=
 
+         */
     @Override
     public Object visit(AccesoArray a, Type param) {
         return super.visit(a, param);
@@ -214,15 +280,30 @@ public class ExecuteCGVisitor extends AbstractCGVisitor{
     public Object visit(AccesoCampos a, Type param) {
         return super.visit(a, param);
     }
-
+    /*
+    execute[[Cast -> value]]=
+    execute[value]
+    <value.suffix 2 Cast.type.suffix>
+    */
     @Override
     public Object visit(Cast a, Type param) {
-        return super.visit(a, param);
+        a.getExpression().accept(this,param);
+        cg.convert(a.getType(),a.getExpression().getType());
+        return null;
     }
 
+    /*
+    execute[[MenosUnario -> value]]=
+    execute[value]
+    <pushi> -1
+    <mul>
+     */
     @Override
     public Object visit(MenosUnario a, Type param) {
-        return super.visit(a, param);
+        a.getExpression().accept(this,param);
+        cg.pushi(-1);
+        cg.mul(a.getType());
+        return null;
     }
     /*
         execute[[Not:not -> expression:exp]]=
@@ -231,12 +312,19 @@ public class ExecuteCGVisitor extends AbstractCGVisitor{
     */
     @Override
     public Object visit(Not a, Type param) {
-        return super.visit(a, param);
+        a.getExpression().accept(this,param);
+        cg.not();
+        return null;
     }
 
+    /*
+    execute[[Variable]]=
+    valueCGVisitor.visit(Variable,param)
+     */
     @Override
     public Object visit(Variable a, Type param) {
-        return super.visit(a, param);
+        a.accept(valueCGVisitor,param);
+        return null;
     }
     /*
         execute[[Assignment:as -> expression:right expression:left]]=
@@ -260,11 +348,15 @@ public class ExecuteCGVisitor extends AbstractCGVisitor{
     /*
        execute[[Read:statement -> variable]]()=
        addressCGVisitor.visit(variable)
-       <load> variable.definition.getType().suffix()
+       <store> variable.definition.getType().suffix()
         */
     @Override
     public Object visit(Read a, Type param) {
-        return super.visit(a, param);
+        cg.anotation("\t' * Read");
+        a.getList().get(0).accept(addressCGVisitor,param);
+        cg.in(a.getList().get(0).getType());
+        cg.store(a.getList().get(0).getType());
+        return null;
     }
 
     @Override
@@ -284,7 +376,13 @@ public class ExecuteCGVisitor extends AbstractCGVisitor{
          */
     @Override
     public Object visit(Write a, Type param) {
-        return super.visit(a, param);
+
+        for (Expression e:a.getList()) {
+            cg.anotation("\t' * Write");
+            e.accept(this, param);
+            cg.out(e);
+        }
+        return null;
     }
 
     @Override

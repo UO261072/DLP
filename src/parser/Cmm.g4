@@ -32,9 +32,16 @@ grammar Cmm;
 
 
        expr returns[Expression ast]: ID {$ast=new Variable($ID.getLine(),$ID.getCharPositionInLine(),$ID.text);}
-       |REAL_CONSTANT {$ast= new LiteralReal($REAL_CONSTANT.getLine(),$REAL_CONSTANT.getCharPositionInLine(),REAL_CONSTANT);}
-       |INT_CONSTANT {$ast= new LiteralInteger($INT_CONSTANT.getLine(),$INT_CONSTANT.getCharPositionInLine(),INT_CONSTANT);}
-       |CHAR_CONSTANT {$ast= new LiteralCharacter($CHAR_CONSTANT.getLine(),$CHAR_CONSTANT.getCharPositionInLine(),(char)CHAR_CONSTANT);}
+       |REAL_CONSTANT {$ast= new LiteralReal($REAL_CONSTANT.getLine(),$REAL_CONSTANT.getCharPositionInLine(),Double.parseDouble($REAL_CONSTANT.getText()));}
+       |INT_CONSTANT {$ast= new LiteralInteger($INT_CONSTANT.getLine(),$INT_CONSTANT.getCharPositionInLine(),java.lang.Integer.parseInt($INT_CONSTANT.getText()));}
+       |CHAR_CONSTANT {
+                        char a=$CHAR_CONSTANT.getText().charAt(1);
+                        if($CHAR_CONSTANT.getText().contains("\\n"))
+                            a='\n';
+                        else if($CHAR_CONSTANT.getText().contains("\\t"))
+                            a='\t';
+                        $ast= new LiteralCharacter($CHAR_CONSTANT.getLine(),$CHAR_CONSTANT.getCharPositionInLine(),a);
+                        }
        |'('primitiveType')'expr {$ast= new Cast(0,0,$expr.ast,$primitiveType.ast);}
        |e1=expr '['e2=expr']' {$ast=new AccesoArray(0,0,$e1.ast,$e2.ast);}
        |ID '.' e2=expr  {$ast=new AccesoCampos(0,0,new Variable($ID.getLine(),$ID.getCharPositionInLine(),$ID.text),$e2.ast);}

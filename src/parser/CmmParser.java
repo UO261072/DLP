@@ -483,21 +483,28 @@ public class CmmParser extends Parser {
 				{
 				setState(107);
 				((ExprContext)_localctx).REAL_CONSTANT = match(REAL_CONSTANT);
-				((ExprContext)_localctx).ast =  new LiteralReal(((ExprContext)_localctx).REAL_CONSTANT.getLine(),((ExprContext)_localctx).REAL_CONSTANT.getCharPositionInLine(),REAL_CONSTANT);
+				((ExprContext)_localctx).ast =  new LiteralReal(((ExprContext)_localctx).REAL_CONSTANT.getLine(),((ExprContext)_localctx).REAL_CONSTANT.getCharPositionInLine(),Double.parseDouble(((ExprContext)_localctx).REAL_CONSTANT.getText()));
 				}
 				break;
 			case 3:
 				{
 				setState(109);
 				((ExprContext)_localctx).INT_CONSTANT = match(INT_CONSTANT);
-				((ExprContext)_localctx).ast =  new LiteralInteger(((ExprContext)_localctx).INT_CONSTANT.getLine(),((ExprContext)_localctx).INT_CONSTANT.getCharPositionInLine(),INT_CONSTANT);
+				((ExprContext)_localctx).ast =  new LiteralInteger(((ExprContext)_localctx).INT_CONSTANT.getLine(),((ExprContext)_localctx).INT_CONSTANT.getCharPositionInLine(),java.lang.Integer.parseInt(((ExprContext)_localctx).INT_CONSTANT.getText()));
 				}
 				break;
 			case 4:
 				{
 				setState(111);
 				((ExprContext)_localctx).CHAR_CONSTANT = match(CHAR_CONSTANT);
-				((ExprContext)_localctx).ast =  new LiteralCharacter(((ExprContext)_localctx).CHAR_CONSTANT.getLine(),((ExprContext)_localctx).CHAR_CONSTANT.getCharPositionInLine(),(char)CHAR_CONSTANT);
+
+				                        char a=((ExprContext)_localctx).CHAR_CONSTANT.getText().charAt(1);
+				                        if(((ExprContext)_localctx).CHAR_CONSTANT.getText().contains("\\n"))
+				                            a='\n';
+				                        else if(((ExprContext)_localctx).CHAR_CONSTANT.getText().contains("\\t"))
+				                            a='\t';
+				                        ((ExprContext)_localctx).ast =  new LiteralCharacter(((ExprContext)_localctx).CHAR_CONSTANT.getLine(),((ExprContext)_localctx).CHAR_CONSTANT.getCharPositionInLine(),a);
+				                        
 				}
 				break;
 			case 5:

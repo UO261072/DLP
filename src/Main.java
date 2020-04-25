@@ -47,7 +47,9 @@ public class Main {
 			v2.visit(p,null);
 			generationVisitor.visit(p,null);
 			/*IntrospectorModel model = new IntrospectorModel("Program", p);
-			new IntrospectorTree("Tree", model);*/
+			new IntrospectorTree("Tree", model);
+			*/
+
 		}
 	}
 	

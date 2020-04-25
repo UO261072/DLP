@@ -1,7 +1,11 @@
 package ast.codeGeneration;
 
+import ast.expressions.Expression;
+import ast.expressions.other.Variable;
 import types.Type;
+import types.simple.Character;
 import types.simple.Integer;
+import types.simple.Real;
 
 import java.io.IOException;
 import java.io.PrintWriter;
@@ -82,16 +86,118 @@ public class CG {
     }
 
     public void pushi(int i) {
-        out.println("pushi "+i);
+        out.println("\tpushi "+i);
         out.flush();
     }
 
 
     public void pushbp() {
+        out.println("\tpush bp");
+        out.flush();
     }
 
     public void add(Type type) {
-        out.println("add"+type.suffix());
+        out.println("\tadd"+type.suffix());
+        out.flush();
+    }
+
+    public void push(Object value) {
+        if(value instanceof java.lang.Character){
+            out.println("\tpush"+Character.getInstance().suffix()+" "+ (int)((char)value));
+        }else if(value instanceof java.lang.Integer){
+            out.println("\tpush"+Integer.getInstance().suffix()+" "+value);
+        }else{
+            out.println("\tpush"+ Real.getInstance().suffix()+" "+value);
+        }
+        out.flush();
+    }
+
+    public void out(Expression e) {
+        out.println("\tout"+e.getType().suffix());
+        out.flush();
+    }
+
+    public void load(Variable a) {
+        out.println("\tload"+a.getType().suffix());
+        out.flush();
+    }
+
+    public void sub(Type type) {
+        out.println("\tsub"+type.suffix());
+        out.flush();
+    }
+
+    public void mul(Type type) {
+        out.println("\tmul"+type.suffix());
+        out.flush();
+    }
+
+    public void div(Type type) {
+        out.println("\tdiv"+type.suffix());
+        out.flush();
+    }
+
+    public void convert(Type type, Type type1) {
+        if((type==Character.getInstance()&&type1==Real.getInstance())||(type1==Character.getInstance()&&type==Real.getInstance())){
+            out.println("\t"+type1.suffix()+"2"+Integer.getInstance().suffix());
+            out.flush();
+            out.println("\t"+Integer.getInstance().suffix()+"2"+type.suffix());
+            out.flush();
+        }
+        else{
+            out.println("\t"+type1.suffix()+"2"+type.suffix());
+            out.flush();
+        }
+
+    }
+
+    public void in(Type type) {
+        out.println("\tin"+type.suffix());
+        out.flush();
+    }
+
+    public void gt(Type type) {
+        out.println("\tgt"+type.suffix());
+        out.flush();
+    }
+
+    public void lt(Type type) {
+        out.println("\tlt"+type.suffix());
+        out.flush();
+    }
+
+    public void ge(Type type) {
+        out.println("\tge"+type.suffix());
+        out.flush();
+    }
+
+    public void le(Type type) {
+        out.println("\tle"+type.suffix());
+        out.flush();
+    }
+
+    public void eq(Type type) {
+        out.println("\teq"+type.suffix());
+        out.flush();
+    }
+
+    public void ne(Type type) {
+        out.println("\tne"+type.suffix());
+        out.flush();
+    }
+
+    public void and() {
+        out.println("\tand");
+        out.flush();
+    }
+
+    public void or() {
+        out.println("\tor");
+        out.flush();
+    }
+
+    public void not() {
+        out.println("\tnot");
         out.flush();
     }
 }
