@@ -98,7 +98,7 @@ public class ExecuteCGVisitor extends AbstractCGVisitor{
         cg.enter(4);
         for(Statement s:a.getSentences())
             if(!(s instanceof VarDef))
-                s.accept(this,param);
+                s.accept(this,a);
         if(((FunctionType) a.getType()).getReturnType() instanceof Void)
             cg.ret(0,a.getBytesLocalVar(),((FunctionType) a.getType()).getParamBytes());
         return null;
@@ -342,17 +342,47 @@ public class ExecuteCGVisitor extends AbstractCGVisitor{
     }
 
     /*
-    execute[[If :stmt -> expr stmt*]]()=
-    int labelNumber=cg.getLabels(1);
+    execute[[If :stmt -> expr stmt* stmt1*]]()=
+    if(stmt1*!=null)
+        int labelNumber=cg.getLabels(2);
+    else
+        int labelNumber=cg.getLabels(1);
     Value[[expr]]
-    <jz> labelNumber
+    <jz label> labelNumber
     for(Statement stmt:stmt*)
         execute[[stmt]]
+    <jmp label> labelNumber+1
     <label> labelNumber <:>
+    for(Statement stmt:stmt1*)
+        execute[[stmt]]
+    <label> labelNumber+1
+
+    }
+
      */
     @Override
     public Object visit(If a, Type param) {
-        return super.visit(a, param);
+        int labelNumber;
+        if(a.getDoElse()!=null)
+            labelNumber=cg.getLabel(2);
+        else
+            labelNumber=cg.getLabel(1);
+        a.getCondition().accept(valueCGVisitor,param);
+        cg.jz(labelNumber+1);
+        for (Statement s:a.getDoIf())
+            s.accept(this,param);
+        if(a.getDoElse()!=null) {
+            cg.jmp(labelNumber);
+            cg.label(labelNumber+1);
+            for (Statement s : a.getDoElse()){
+                s.accept(this,param);
+            }
+        }
+        cg.label(labelNumber);
+
+
+
+        return null;
     }
     /*
        execute[[Read:statement -> variable]]()=
@@ -374,7 +404,8 @@ public class ExecuteCGVisitor extends AbstractCGVisitor{
      */
     @Override
     public Object visit(Return a, Type param) {
-        return super.visit(a, param);
+        cg.ret(a.getExpression().getType().size(),((FunDef)param).getBytesLocalVar(),((FunctionType)((FunDef)param).getType()).getParamBytes());
+        return null;
     }
     /*
     execute[[While :stmt -> expr stmt*]]()=
@@ -384,12 +415,21 @@ public class ExecuteCGVisitor extends AbstractCGVisitor{
     <jz label> labelNumber+1
     for(Statement stmt:stmt*)
         execute[[stmt]]
-    <jmp label> labelNumber <:>
+    <jmp label> labelNumber
     <label> labelNumber+1 <:>
      */
     @Override
     public Object visit(While a, Type param) {
-        return super.visit(a, param);
+        int labelNumber=cg.getLabel(2);
+        cg.label(labelNumber);
+        a.getCondition().accept(valueCGVisitor,param);
+        cg.jz(labelNumber+1);
+        for(Statement s:a.getDoWhile()){
+            s.accept(this,param);
+        }
+        cg.jmp(labelNumber);
+        cg.label(labelNumber+1);
+        return null;
     }
     /*
         execute[[Write : statement -> expression*]]()=
@@ -416,6 +456,9 @@ public class ExecuteCGVisitor extends AbstractCGVisitor{
      */
     @Override
     public Object visit(FunctionCall a, Type param) {
-        return super.visit(a, param);
+        a.accept(valueCGVisitor,param);
+        if(a.getFunction().definition.getType() instanceof Void)
+            cg.pop(a.getType());
+        return null;
     }
 }

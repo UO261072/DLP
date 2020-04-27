@@ -1,8 +1,8 @@
 #source "input.txt"
 
-	. * char c (offset 0)
-	. * int a (offset 1)
-	. * double r (offset 3)
+	' * char c (offset 0)
+	' * int a (offset 1)
+	' * double r (offset 3)
 
 ' Invocation to the main function
 call main
@@ -10,8 +10,8 @@ halt
  main:
 	' * Parameters
 	' * Local variables
-	. * int a (offset -2)
-	. * int i (offset -4)
+	' * int a (offset -2)
+	' * int i (offset -4)
 	enter 4
 	pusha 0
 	pushb 97

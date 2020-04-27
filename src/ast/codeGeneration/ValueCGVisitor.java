@@ -1,5 +1,7 @@
 package ast.codeGeneration;
 
+import ast.FunctionCall;
+import ast.expressions.Expression;
 import ast.expressions.other.Variable;
 import types.Type;
 
@@ -38,4 +40,11 @@ public class ValueCGVisitor extends AbstractCGVisitor {
     <call> expr1.name
      */
 
+    @Override
+    public Object visit(FunctionCall a, Type param) {
+        for (Expression e:a.getArgs())
+            e.accept(this,param);
+        cg.call(a.getFunction().getNombre());
+        return null;
+    }
 }

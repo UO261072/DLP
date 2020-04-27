@@ -13,8 +13,10 @@ import java.io.PrintWriter;
 public class CG {
 
     private PrintWriter out;
+    private int numberOfLabels;
 
     public CG(String outputFilename, String sourceFileName){
+        numberOfLabels=0;
         try{
             this.out=new PrintWriter(outputFilename);
         }catch (IOException e){
@@ -41,7 +43,7 @@ public class CG {
     }
 
     public void var(String type, String name, int offset) {
-        out.println("\t. * "+type+" "+name+" (offset "+offset+")");
+        out.println("\t' * "+type+" "+name+" (offset "+offset+")");
         out.flush();
     }
 
@@ -198,6 +200,32 @@ public class CG {
 
     public void not() {
         out.println("\tnot");
+        out.flush();
+    }
+
+    public void pop(Type type) {
+        out.println("\tpop"+type.suffix());
+        out.flush();
+    }
+
+    public int getLabel(int i) {
+        int a=numberOfLabels;
+        numberOfLabels+=i;
+        return a;
+    }
+
+    public void label(int labelNumber) {
+        out.println("\tlabel"+labelNumber+":");
+        out.flush();
+    }
+
+    public void jz(int labelNumber) {
+        out.println("\tjz"+labelNumber);
+        out.flush();
+    }
+
+    public void jmp(int labelNumber) {
+        out.println("\tjmp"+labelNumber);
         out.flush();
     }
 }
