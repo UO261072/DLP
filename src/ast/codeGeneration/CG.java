@@ -70,8 +70,8 @@ public class CG {
         out.flush();
     }
 
-    public void ret(int i, int j) {
-        out.println("\tret "+i+","+j+","+0);
+    public void ret(int i, int j,int k) {
+        out.println("\tret "+i+","+j+","+k);
         out.flush();
     }
 

@@ -51,6 +51,7 @@ grammar Cmm;
        |e1=expr s=('<'|'>='|'=='|'!='|'<='|'>') e2=expr {$ast= new Comparation(0,0,$s.text,$e1.ast,$e2.ast);}
        | '!'expr {$ast= new Not(0,0,$expr.ast);}
        | e1=expr s=('||'|'&&') e2=expr {$ast= new Logic(0,0,$s.text,$e1.ast,$e2.ast);}
+       |'('expr')'{$ast=$expr.ast;}
        ;
 
 
@@ -104,7 +105,7 @@ grammar Cmm;
        RecordType rt=new RecordType($structComponents.ast);
        $ast=new VarDef($ID.getLine(),$ID.getCharPositionInLine(),$ID.text,rt);};
 
-       structComponents returns[List<RecordField> ast=new ArrayList<RecordField>()]: (vardef{$ast.add(new RecordField($vardef.ast.getName(),$vardef.ast.getType(),0));}';')* ;
+       structComponents returns[List<RecordField> ast=new ArrayList<RecordField>()]: (vardef{$ast.add(new RecordField($vardef.ast.getName(),$vardef.ast.getType(),0));}';')*|struct* ;
 
 
 

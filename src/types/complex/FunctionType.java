@@ -36,6 +36,13 @@ public class FunctionType extends AbstractType implements Type{
 		this.returnType = returnType;
 	}
 
+	public int getParamBytes(){
+		int i=0;
+		for(VarDef var:param){
+			i+=var.getType().size();
+		}
+		return i;
+	}
 	@Override
 	public Type parentheisis(List<Expression> t, ASTNode node) {
 		if(getParam().size()!=t.size())

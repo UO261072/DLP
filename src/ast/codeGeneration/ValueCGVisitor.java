@@ -30,4 +30,12 @@ public class ValueCGVisitor extends AbstractCGVisitor {
         cg.load(a);
         return null;
     }
+
+    /*
+    value[[FunctionCall: expr -> expr1 expr*]]()=
+    for(Expr e: expr*)
+        value[[e]]
+    <call> expr1.name
+     */
+
 }

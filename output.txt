@@ -16,10 +16,12 @@ halt
 	pusha 0
 	pushb 97
 	storeb
+
 	' * Write
 	pusha 0
 	loadb
 	outb
+
 	' * Write
 	pushb 10
 	outb
@@ -36,28 +38,34 @@ halt
 	pushi 3
 	muli
 	storei
+
 	' * Write
 	pushi -2
 	push bp
 	addi
 	loadi
 	outi
+
 	' * Write
 	pushb 32
 	outb
+
 	' * Write
 	pushi -4
 	push bp
 	addi
 	loadi
 	outi
+
 	' * Write
 	pushb 10
 	outb
+
 	' * Read
 	pusha 3
 	inf
 	storef
+
 	' * Write
 	pushi 2
 	i2f
@@ -65,18 +73,22 @@ halt
 	loadf
 	mulf
 	outf
+
 	' * Write
 	pushb 10
 	outb
+
 	' * Write
 	pushi 3
 	i2f
 	pushf 4.5
 	subf
 	outf
+
 	' * Write
 	pushb 32
 	outb
+
 	' * Write
 	pushb 48
 	b2i
@@ -84,18 +96,22 @@ halt
 	pushf 48.0
 	divf
 	outf
+
 	' * Write
 	pushb 32
 	outb
+
 	' * Write
 	pushb 48
 	b2i
 	pushb 49
 	b2i
 	outi
+
 	' * Write
 	pushb 32
 	outb
+
 	' * Write
 	pushb 48
 	b2i
@@ -103,53 +119,66 @@ halt
 	b2i
 	addi
 	outi
+
 	' * Write
 	pushb 10
 	outb
+
 	' * Write
 	pushi 1
 	pushi 2
 	lti
 	outi
+
 	' * Write
 	pushb 32
 	outb
+
 	' * Write
 	pushi 4
 	pushi 3
 	gei
 	outi
+
 	' * Write
 	pushb 32
 	outb
+
 	' * Write
 	pushi 5
 	pushi 5
 	eqi
 	outi
+
 	' * Write
 	pushb 32
 	outb
+
 	' * Write
 	pushi 1
 	pushi 2
 	and
 	outi
+
 	' * Write
 	pushb 32
 	outb
+
 	' * Write
 	pushi 0
 	pushi 3
 	or
 	outi
+
 	' * Write
 	pushb 32
 	outb
+
 	' * Write
 	pushi 0
 	not
 	outi
+
 	' * Write
 	pushb 10
 	outb

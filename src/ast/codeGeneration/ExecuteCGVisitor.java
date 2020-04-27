@@ -100,7 +100,7 @@ public class ExecuteCGVisitor extends AbstractCGVisitor{
             if(!(s instanceof VarDef))
                 s.accept(this,param);
         if(((FunctionType) a.getType()).getReturnType() instanceof Void)
-            cg.ret(0,a.getBytesLocalVar());
+            cg.ret(0,a.getBytesLocalVar(),((FunctionType) a.getType()).getParamBytes());
         return null;
     }
     /*
@@ -341,6 +341,15 @@ public class ExecuteCGVisitor extends AbstractCGVisitor{
         return null;
     }
 
+    /*
+    execute[[If :stmt -> expr stmt*]]()=
+    int labelNumber=cg.getLabels(1);
+    Value[[expr]]
+    <jz> labelNumber
+    for(Statement stmt:stmt*)
+        execute[[stmt]]
+    <label> labelNumber <:>
+     */
     @Override
     public Object visit(If a, Type param) {
         return super.visit(a, param);
@@ -352,18 +361,32 @@ public class ExecuteCGVisitor extends AbstractCGVisitor{
         */
     @Override
     public Object visit(Read a, Type param) {
-        cg.anotation("\t' * Read");
+        cg.anotation("\n\t' * Read");
         a.getList().get(0).accept(addressCGVisitor,param);
         cg.in(a.getList().get(0).getType());
         cg.store(a.getList().get(0).getType());
         return null;
     }
 
+    /*
+    execute[[Return:stmt->expr]]()=
+    <ret> expr.getType.byte ',' function.localVarBytes ',' function.paramBytes
+     */
     @Override
     public Object visit(Return a, Type param) {
         return super.visit(a, param);
     }
-
+    /*
+    execute[[While :stmt -> expr stmt*]]()=
+    int labelNumber=cg.getLabels(2);
+    <label> labelNumber <:>
+    Value[[expr]]
+    <jz label> labelNumber+1
+    for(Statement stmt:stmt*)
+        execute[[stmt]]
+    <jmp label> labelNumber <:>
+    <label> labelNumber+1 <:>
+     */
     @Override
     public Object visit(While a, Type param) {
         return super.visit(a, param);
@@ -378,13 +401,19 @@ public class ExecuteCGVisitor extends AbstractCGVisitor{
     public Object visit(Write a, Type param) {
 
         for (Expression e:a.getList()) {
-            cg.anotation("\t' * Write");
+            cg.anotation("\n\t' * Write");
             e.accept(this, param);
             cg.out(e);
         }
         return null;
     }
 
+    /*
+    execute[[FunctionCall: expr -> expr1 expr*]]()=
+    value[[expr]]
+    if(expr.type!='void')
+        <pop>expr.type.suffix
+     */
     @Override
     public Object visit(FunctionCall a, Type param) {
         return super.visit(a, param);
