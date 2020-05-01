@@ -114,7 +114,7 @@ grammar Cmm;
                     $ast.add(new RecordField($vardef.ast.getName(),$vardef.ast.getType(),0));
                     for(AbstractDefinition a:$vardef.astl)
                         $ast.add(new RecordField(a.getName(),$vardef.ast.getType(),0));
-                        }';')*|array*;
+                        }';')*|(array{$ast.add(new RecordField($array.ast.getName(),$array.ast.getType(),0));})*;
 
 
 

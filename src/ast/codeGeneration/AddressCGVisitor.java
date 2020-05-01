@@ -13,6 +13,7 @@ import ast.statements.Assignment;
 import ast.statements.Read;
 import ast.statements.Write;
 import types.Type;
+import types.complex.ArrayType;
 import types.simple.Integer;
 
 public class AddressCGVisitor  extends AbstractCGVisitor{
@@ -59,7 +60,14 @@ public class AddressCGVisitor  extends AbstractCGVisitor{
     @Override
     public Object visit(AccesoCampos a, Type param) {
         a.getNombre().accept(this,param);
-        cg.pushi(((Variable)a.getNombre()).definition.getType().dirNum(a.getExpression()));
+        if(a.getNombre()instanceof Variable)
+            cg.pushi(((Variable)a.getNombre()).definition.getType().dirNum(a.getExpression()));
+        else {
+            if(a.getExpression() instanceof ArrayType)
+                a.getExpression().accept(this,param);
+
+            cg.pushi(((a.getNombre().getType()).dirNum(a.getExpression())));
+        }
         cg.add(Integer.getInstance());
         return null;
     }

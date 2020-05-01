@@ -1,10 +1,13 @@
 package types.complex;
 
 import ast.ASTNode;
+import ast.expressions.Expression;
 import ast.visitor.Visitor;
 import types.AbstractType;
 import types.ErrorType;
 import types.Type;
+import types.record.RecordField;
+import types.record.RecordType;
 import types.simple.Integer;
 
 public class ArrayType extends AbstractType implements Type {
@@ -61,5 +64,19 @@ public class ArrayType extends AbstractType implements Type {
 	@Override
 	public int size() {
 		return type.size()*size;
+	}
+
+	@Override
+	public Type acceso(String name, ASTNode node) {
+		if(getType() instanceof RecordType)
+			return getType().acceso(name, node);
+		return super.acceso(name, node);
+	}
+
+	@Override
+	public int dirNum(Expression e) {
+		if(getType() instanceof RecordType)
+			return getType().dirNum(e);
+		return super.dirNum(e);
 	}
 }

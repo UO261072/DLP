@@ -15,6 +15,7 @@ import ast.statements.*;
 import ast.visitor.AbstractVisitor;
 import types.ErrorType;
 import types.Type;
+import types.complex.ArrayType;
 import types.complex.FunctionType;
 import types.record.RecordField;
 import types.record.RecordType;
@@ -117,12 +118,28 @@ public class VisitorLValue extends AbstractVisitor {
     public Object visit(AccesoCampos a, Type p) {
         super.visit(a, p);
         a.setLValue(true);
-        if(a.getExpression() instanceof Variable){
-            a.setType(((Variable)a.getNombre()).definition.getType().acceso(((Variable)a.getExpression()).getNombre(),a));
-        }
-        else {
+        if(!(a.getNombre() instanceof Variable))
+            a.getNombre().accept(this,p);
+        if(a.getExpression()instanceof Variable)
+            a.setType(a.getNombre().getType().acceso(((Variable)a.getExpression()).getNombre(),a));
+        else if(a.getExpression()instanceof AccesoArray)
+            a.setType(a.getNombre().getType().acceso(((Variable)((AccesoArray)a.getExpression()).getArray()).getNombre(),a));
+
+        /*if(a.getExpression() instanceof Variable){
+            if(a.getNombre() instanceof Variable)
+                a.setType(((Variable)a.getNombre()).definition.getType().acceso(((Variable)a.getExpression()).getNombre(),a));
+            else{
+                a.getNombre().accept(this,p);
+                a.setType(a.getNombre().getType());
+            }
+        }else{
+            a.getNombre().accept(this,p);
+            a.setType(a.getNombre().getType());
+        }*/
+
+        /*else {
             new ErrorType(a.getLine(), a.getColumn(), "No se puede acceder a un campo que no sea una variable");
-        }
+        }*/
         return null;
     }
 

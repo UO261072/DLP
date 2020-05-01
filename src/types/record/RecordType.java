@@ -5,6 +5,7 @@ import java.util.List;
 
 import ast.ASTNode;
 import ast.expressions.Expression;
+import ast.expressions.other.AccesoArray;
 import ast.expressions.other.Variable;
 import types.AbstractType;
 import types.ErrorType;
@@ -58,10 +59,16 @@ public class RecordType extends AbstractType implements Type {
 
 	@Override
 	public int dirNum(Expression e) {
-
-		for(RecordField rt:components){
-			if(rt.getName().equals(((Variable)e).getNombre()))
-				return rt.getOffset();
+		if(e instanceof Variable)
+			for(RecordField rt:components){
+				if(rt.getName().equals(((Variable)e).getNombre()))
+					return rt.getOffset();
+			}
+		else{
+			for(RecordField rt:components){
+				if(rt.getName().equals(((Variable)((AccesoArray)e).getArray()).getNombre()))
+					return rt.getOffset();
+			}
 		}
 		return -1;
 	}
