@@ -2,6 +2,7 @@ package ast.codeGeneration;
 
 import ast.FunctionCall;
 import ast.expressions.Expression;
+import ast.expressions.binary.Comparation;
 import ast.expressions.other.Variable;
 import types.Type;
 
@@ -29,7 +30,7 @@ public class ValueCGVisitor extends AbstractCGVisitor {
     @Override
     public Object visit(Variable a, Type param) {
         a.accept(addressCGVisitor,param);
-        cg.load(a);
+        cg.load(a.definition.getType());
         return null;
     }
 
@@ -47,4 +48,6 @@ public class ValueCGVisitor extends AbstractCGVisitor {
         cg.call(a.getFunction().getNombre());
         return null;
     }
+
+
 }

@@ -15,7 +15,9 @@ import ast.expressions.literal.LiteralReal;
 import ast.expressions.other.*;
 import ast.statements.*;
 import types.Type;
+import types.complex.ArrayType;
 import types.complex.FunctionType;
+import types.record.RecordType;
 import types.simple.Character;
 import types.simple.Integer;
 import types.simple.Real;
@@ -87,6 +89,7 @@ public class ExecuteCGVisitor extends AbstractCGVisitor{
      */
     @Override
     public Object visit(FunDef a, Type param) {
+        cg.line(a.getLine());
         cg.fun(a.getName());
         cg.parameters();
         for(Definition d:((FunctionType)a.getType()).getParam())
@@ -95,7 +98,7 @@ public class ExecuteCGVisitor extends AbstractCGVisitor{
         for(Statement s:a.getSentences())
             if(s instanceof VarDef)
                 s.accept(this,param);
-        cg.enter(4);
+        cg.enter(a.getBytesLocalVar()+((FunctionType) a.getType()).getParamBytes());
         for(Statement s:a.getSentences())
             if(!(s instanceof VarDef))
                 s.accept(this,a);
@@ -115,11 +118,15 @@ public class ExecuteCGVisitor extends AbstractCGVisitor{
     @Override
     public Object visit(VarDef a, Type param) {
         if(a.getType()== Integer.getInstance()){
-            cg.var("int",a.getName(),a.getOffset());
+            cg.var(a.getType(),a.getName(),a.getOffset());
         }else if(a.getType()== Character.getInstance()){
-            cg.var("char",a.getName(),a.getOffset());
+            cg.var(a.getType(),a.getName(),a.getOffset());
         }else if(a.getType()== Real.getInstance()){
-            cg.var("double",a.getName(),a.getOffset());
+            cg.var(a.getType(),a.getName(),a.getOffset());
+        }else if(a.getType() instanceof ArrayType){
+            cg.var(a.getType(),a.getName(),a.getOffset());
+        }else if(a.getType() instanceof RecordType){
+            cg.var(a.getType(),a.getName(),a.getOffset());
         }
         return null;
     }
@@ -158,6 +165,9 @@ public class ExecuteCGVisitor extends AbstractCGVisitor{
                 break;
             case "/":
                 cg.div(a.getType());
+                break;
+            case "%":
+                cg.mod(a.getType());
                 break;
         }
         return null;
@@ -268,17 +278,25 @@ public class ExecuteCGVisitor extends AbstractCGVisitor{
         return null;
     }
         /*
-        execute[[AccesoArray]]=
-
+        execute[[AccesoArray:access]]=
+        address[[access]]
          */
     @Override
     public Object visit(AccesoArray a, Type param) {
-        return super.visit(a, param);
+        a.accept(addressCGVisitor,param);
+        cg.load(a.getType());
+        return null;
     }
 
+    /*
+    execute[[AccessoCampos:a]]()=
+    address[[a]]
+     */
     @Override
     public Object visit(AccesoCampos a, Type param) {
-        return super.visit(a, param);
+        a.accept(addressCGVisitor,param);
+        cg.load(a.getType());
+        return null;
     }
     /*
     execute[[Cast -> value]]=
@@ -335,6 +353,7 @@ public class ExecuteCGVisitor extends AbstractCGVisitor{
      */
     @Override
     public Object visit(Assignment a, Type param) {
+        cg.line(a.getLine());
         a.getLeft().accept(addressCGVisitor,param);
         a.getRight().accept(this,param);
         cg.store(a.getRight().getType());
@@ -362,12 +381,13 @@ public class ExecuteCGVisitor extends AbstractCGVisitor{
      */
     @Override
     public Object visit(If a, Type param) {
+        cg.line(a.getLine());
         int labelNumber;
         if(a.getDoElse()!=null)
             labelNumber=cg.getLabel(2);
         else
             labelNumber=cg.getLabel(1);
-        a.getCondition().accept(valueCGVisitor,param);
+        a.getCondition().accept(this,param);
         cg.jz(labelNumber+1);
         for (Statement s:a.getDoIf())
             s.accept(this,param);
@@ -391,6 +411,7 @@ public class ExecuteCGVisitor extends AbstractCGVisitor{
         */
     @Override
     public Object visit(Read a, Type param) {
+        cg.line(a.getLine());
         cg.anotation("\n\t' * Read");
         a.getList().get(0).accept(addressCGVisitor,param);
         cg.in(a.getList().get(0).getType());
@@ -420,9 +441,10 @@ public class ExecuteCGVisitor extends AbstractCGVisitor{
      */
     @Override
     public Object visit(While a, Type param) {
+        cg.line(a.getLine());
         int labelNumber=cg.getLabel(2);
         cg.label(labelNumber);
-        a.getCondition().accept(valueCGVisitor,param);
+        a.getCondition().accept(this,param);
         cg.jz(labelNumber+1);
         for(Statement s:a.getDoWhile()){
             s.accept(this,param);
@@ -439,7 +461,7 @@ public class ExecuteCGVisitor extends AbstractCGVisitor{
          */
     @Override
     public Object visit(Write a, Type param) {
-
+        cg.line(a.getLine());
         for (Expression e:a.getList()) {
             cg.anotation("\n\t' * Write");
             e.accept(this, param);

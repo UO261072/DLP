@@ -110,7 +110,11 @@ grammar Cmm;
 
        structBase returns[RecordType ast]: 'struct' '{' structComponents'}'{$ast=new RecordType($structComponents.ast);};
 
-       structComponents returns[List<RecordField> ast=new ArrayList<RecordField>()]: (vardef{$ast.add(new RecordField($vardef.ast.getName(),$vardef.ast.getType(),0));}';')*|array*;
+       structComponents returns[List<RecordField> ast=new ArrayList<RecordField>()]: (vardef{
+                    $ast.add(new RecordField($vardef.ast.getName(),$vardef.ast.getType(),0));
+                    for(AbstractDefinition a:$vardef.astl)
+                        $ast.add(new RecordField(a.getName(),$vardef.ast.getType(),0));
+                        }';')*|array*;
 
 
 

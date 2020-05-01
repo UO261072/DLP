@@ -3,6 +3,7 @@ package ast.codeGeneration;
 import ast.expressions.Expression;
 import ast.expressions.other.Variable;
 import types.Type;
+import types.complex.ArrayType;
 import types.simple.Character;
 import types.simple.Integer;
 import types.simple.Real;
@@ -42,7 +43,7 @@ public class CG {
         out.flush();
     }
 
-    public void var(String type, String name, int offset) {
+    public void var(Type type, String name, int offset) {
         out.println("\t' * "+type+" "+name+" (offset "+offset+")");
         out.flush();
     }
@@ -119,8 +120,8 @@ public class CG {
         out.flush();
     }
 
-    public void load(Variable a) {
-        out.println("\tload"+a.getType().suffix());
+    public void load(Type a) {
+        out.println("\tload"+a.suffix());
         out.flush();
     }
 
@@ -136,6 +137,10 @@ public class CG {
 
     public void div(Type type) {
         out.println("\tdiv"+type.suffix());
+        out.flush();
+    }
+    public void mod(Type type) {
+        out.println("\tmod"+type.suffix());
         out.flush();
     }
 
@@ -215,17 +220,24 @@ public class CG {
     }
 
     public void label(int labelNumber) {
-        out.println("\tlabel"+labelNumber+":");
+        out.println(" label"+labelNumber+":");
         out.flush();
     }
 
     public void jz(int labelNumber) {
-        out.println("\tjz"+labelNumber);
+        out.println("\tjz\tlabel"+labelNumber);
         out.flush();
     }
 
     public void jmp(int labelNumber) {
-        out.println("\tjmp"+labelNumber);
+        out.println("\tjmp\tlabel"+labelNumber);
         out.flush();
     }
+
+
+    public void line(int line) {
+        this.anotation("\n#line\t"+line+"\n");
+    }
+
+
 }

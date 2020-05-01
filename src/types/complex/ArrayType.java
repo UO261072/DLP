@@ -53,5 +53,13 @@ public class ArrayType extends AbstractType implements Type {
 	}*/
 
 
+	@Override
+	public String toString() {
+		return "["+size+","+type+"]";
+	}
 
+	@Override
+	public int size() {
+		return type.size()*size;
+	}
 }

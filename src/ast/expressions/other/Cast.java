@@ -13,7 +13,7 @@ public class Cast extends AbstractExpression implements Expression {
 	private boolean LValue;
 	
 	public Cast(int line, int column, Expression expression, Type type) {
-		super(line, column);
+		super(expression.getLine(), expression.getColumn());
 		this.expression = expression;
 		this.type = type;
 	}

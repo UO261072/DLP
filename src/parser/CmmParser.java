@@ -1500,7 +1500,11 @@ public class CmmParser extends Parser {
 					{
 					setState(299);
 					((StructComponentsContext)_localctx).vardef = vardef();
-					_localctx.ast.add(new RecordField(((StructComponentsContext)_localctx).vardef.ast.getName(),((StructComponentsContext)_localctx).vardef.ast.getType(),0));
+
+					                    _localctx.ast.add(new RecordField(((StructComponentsContext)_localctx).vardef.ast.getName(),((StructComponentsContext)_localctx).vardef.ast.getType(),0));
+					                    for(AbstractDefinition a:((StructComponentsContext)_localctx).vardef.astl)
+					                        _localctx.ast.add(new RecordField(a.getName(),((StructComponentsContext)_localctx).vardef.ast.getType(),0));
+					                        
 					setState(301);
 					match(T__0);
 					}

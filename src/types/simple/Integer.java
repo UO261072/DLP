@@ -81,4 +81,9 @@ public class Integer extends AbstractType implements Type {
     public int size() {
         return 2;
     }
+
+    @Override
+    public String toString() {
+        return "int";
+    }
 }

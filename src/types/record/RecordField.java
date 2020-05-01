@@ -38,4 +38,9 @@ public class RecordField {
 	public void setOffset(int offset) {
 		this.offset = offset;
 	}
+
+	@Override
+	public String toString() {
+		return "("+name+" x "+type+")";
+	}
 }

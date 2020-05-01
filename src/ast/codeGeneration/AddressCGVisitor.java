@@ -22,11 +22,11 @@ public class AddressCGVisitor  extends AbstractCGVisitor{
     public AddressCGVisitor(CG cg,ValueCGVisitor valueCGVisitor) {
         super(cg);
         this.valueCGVisitor=valueCGVisitor;
-        //valueCGVisitor=new ValueCGVisitor(cg);
+
     }
 
 /*
-    adress[[Variable:expression->ID]]()=
+    address[[Variable:expression->ID]]()=
 
     if(expression.definition.scope==0)
         <pusha> expression.definition.offset
@@ -34,7 +34,7 @@ public class AddressCGVisitor  extends AbstractCGVisitor{
         <pushi> expression.definition.offset
         <push bp>
         <addi>
-        <pusha>
+
 
      */
 
@@ -46,8 +46,40 @@ public class AddressCGVisitor  extends AbstractCGVisitor{
             cg.pushi(a.definition.getOffset());
             cg.pushbp();
             cg.add(Integer.getInstance());
-            //cg.pusha();
+
         }
+        return null;
+    }
+
+    /*
+    address[[AccesoCampos:access -> Variable:var]]()=
+    address[[var]]
+     */
+
+    @Override
+    public Object visit(AccesoCampos a, Type param) {
+        a.getNombre().accept(this,param);
+        cg.pushi(a.getNombre().definition.getType().dirNum(a.getExpression()));
+        cg.add(Integer.getInstance());
+        return null;
+    }
+
+    /*address[[AccesoArray:acess -> Variable:var Expression:location]]
+    value[[location]]
+    <pushi> a.getType.size();
+    <muli>
+    address[[var]]
+    <add>
+
+     */
+
+    @Override
+    public Object visit(AccesoArray a, Type param) {
+        a.getArray().accept(this,param);
+        a.getLocation().accept(valueCGVisitor,param);
+        cg.pushi(a.getType().size());
+        cg.mul(Integer.getInstance());
+        cg.add(Integer.getInstance());
         return null;
     }
 }

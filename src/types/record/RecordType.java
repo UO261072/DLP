@@ -1,8 +1,11 @@
 package types.record;
 
+import java.util.ArrayList;
 import java.util.List;
 
 import ast.ASTNode;
+import ast.expressions.Expression;
+import ast.expressions.other.Variable;
 import types.AbstractType;
 import types.ErrorType;
 import types.Type;
@@ -10,6 +13,7 @@ import types.Type;
 public class RecordType extends AbstractType implements Type {
 
 	private List<RecordField> components;
+
 
 	public RecordType(List<RecordField> components) {
 		super();
@@ -50,5 +54,28 @@ public class RecordType extends AbstractType implements Type {
 				return components.get(i).getType();
 		}
 		return new ErrorType(node.getLine(),node.getColumn(),"El campo no existe");
+	}
+
+	@Override
+	public int dirNum(Expression e) {
+
+		for(RecordField rt:components){
+			if(rt.getName().equals(((Variable)e).getNombre()))
+				return rt.getOffset();
+		}
+		return -1;
+	}
+
+
+	@Override
+	public String toString() {
+		String a="record(";
+		for (int i=0;i<components.size()-1;i++){
+			a+=components.get(i);
+			a+="x";
+		}
+		a+=components.get(components.size()-1);
+		a+=")";
+		return a;
 	}
 }

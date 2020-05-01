@@ -32,4 +32,6 @@ public interface Type  {
     Type negate(ASTNode node);
 
     Type comparation(Type t,ASTNode node);
+
+    int dirNum(Expression e);
 }

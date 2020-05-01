@@ -75,4 +75,9 @@ public abstract class AbstractType implements Type {
     public Type comparation(Type t, ASTNode node) {
         return new ErrorType(node.getLine(),node.getColumn(),"No se pueden comparar estos tipos");
     }
+
+    @Override
+    public int dirNum(Expression e) {
+        throw new IllegalStateException("No se puede comprobar la direccion del struct de este tipo");
+    }
 }
