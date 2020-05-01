@@ -1,118 +1,137 @@
-#source "input2.txt"
+#source "input1.txt"
 
-	' * int i (offset 0)
-	' * int n (offset 2)
-	' * int j (offset 4)
-	' * char c (offset 6)
-	' * record((integer x int)x(character x char)) pair (offset 7)
-	' * [10,[10,int]] matrix (offset 10)
+	' * [10,real] v (offset 0)
 
 ' Invocation to the main function
 call main
 halt
 
-#line	12
+#line	4
 
- p:
+ main:
 	' * Parameters
 	' * Local variables
-	enter 0
-	ret 0,0,0
+	' * real value (offset -4)
+	' * int i (offset -6)
+	' * int j (offset -8)
+	' * [4,[5,int]] w (offset -48)
+	' * record((day x int)x(month x int)x(year x int)) date (offset -54)
+	enter 54
+
+#line	13
+
+
+	' * Read
+	pushi -54
+	push bp
+	addi
+	pushi 0
+	addi
+	ini
+	storei
 
 #line	14
 
- f:
-	' * Parameters
-	' * real r (offset 6)
-	' * int e (offset 4)
-	' * Local variables
-	' * real real (offset -4)
-	' * char c (offset -5)
-	enter 5
-
-#line	17
-
-	pushi -4
+	pushi -54
 	push bp
 	addi
-	pusha 7
+	pushi 4
+	addi
+	pushb 97
+	b2i
+	storei
+
+#line	15
+
+	pushi -54
+	push bp
+	addi
 	pushi 2
 	addi
-	loadb
-	b2i
-	i2f
-	pusha 7
+	pushi -54
+	push bp
+	addi
 	pushi 0
 	addi
 	loadi
-	i2f
-	addf
-	pushi 6
+	pushi -54
 	push bp
 	addi
-	loadf
-	addf
 	pushi 4
+	addi
+	loadi
+	muli
+	pushi 12
+	modi
+	pushi 1
+	addi
+	storei
+
+#line	16
+
+
+	' * Write
+	pushi -54
 	push bp
+	addi
+	pushi 0
+	addi
+	loadi
+	outi
+
+	' * Write
+	pushb 10
+	outb
+
+	' * Write
+	pushi -54
+	push bp
+	addi
+	pushi 2
+	addi
+	loadi
+	outi
+
+	' * Write
+	pushb 10
+	outb
+
+	' * Write
+	pushi -54
+	push bp
+	addi
+	pushi 4
 	addi
 	loadi
 	i2f
-	addf
-	storef
+	outf
+
+	' * Write
+	pushb 10
+	outb
 
 #line	18
 
-	pushi -5
+
+	' * Read
+	pushi -4
 	push bp
 	addi
-	pushb 48
-	storeb
+	inf
+	storef
 
-#line	19
+#line	20
 
-	' * Return
-	pushi -5
-	push bp
-	addi
-	loadb
-	b2i
-	ret 2,5,6
-
-#line	24
-
- fill:
-	' * Parameters
-	' * int row (offset 8)
-	' * int value (offset 6)
-	' * int increment (offset 4)
-	' * Local variables
-	' * int i (offset -2)
-	' * int inc (offset -4)
-	enter 4
-
-#line	26
-
-	pushi -2
+	pushi -6
 	push bp
 	addi
 	pushi 0
 	storei
 
-#line	27
-
-	pushi -4
-	push bp
-	addi
-	pushi 4
-	push bp
-	addi
-	loadi
-	storei
-
-#line	28
+#line	21
 
  label0:
-	pushi -2
+	pushi -6
 	push bp
 	addi
 	loadi
@@ -120,125 +139,259 @@ halt
 	lti
 	jz	label1
 
-#line	29
+#line	22
 
-	pusha 10
-	pushi 8
-	push bp
-	addi
-	loadi
-	pushi 20
-	muli
-	addi
-	pushi -2
-	push bp
-	addi
-	loadi
-	pushi 2
-	muli
-	addi
-	pushi 6
-	push bp
-	addi
-	loadi
-	pushi -4
-	push bp
-	addi
-	loadi
-	addi
-	storei
-
-#line	30
-
-	pushi -2
-	push bp
-	addi
-	pushi -2
-	push bp
-	addi
-	loadi
-	pushi 1
-	addi
-	storei
-
-#line	31
-
-	pushi -4
-	push bp
-	addi
-	pushi -4
+	pusha 0
+	pushi -6
 	push bp
 	addi
 	loadi
 	pushi 4
+	muli
+	addi
+	pushi -4
 	push bp
 	addi
-	loadi
-	addi
-	storei
-	jmp	label0
- label1:
-	ret 0,4,6
+	loadf
+	storef
 
-#line	35
-
- show:
-	' * Parameters
-	' * int row (offset 4)
-	' * Local variables
-	' * int i (offset -2)
-	enter 2
-
-#line	37
-
-	pushi -2
-	push bp
-	addi
-	pushi 0
-	storei
-
-#line	38
-
- label2:
-	pushi -2
-	push bp
-	addi
-	loadi
-	pushi 10
-	lti
-	jz	label3
-
-#line	39
+#line	23
 
 
 	' * Write
-	pushb 40
-	outb
-
-	' * Write
-	pushi 4
+	pushi -6
 	push bp
 	addi
 	loadi
 	outi
-
-	' * Write
-	pushb 44
-	outb
-
-	' * Write
-	pushi -2
-	push bp
-	addi
-	loadi
-	outi
-
-	' * Write
-	pushb 41
-	outb
 
 	' * Write
 	pushb 58
 	outb
 
 	' * Write
+	pusha 0
+	pushi -6
+	push bp
+	addi
+	loadi
+	pushi 4
+	muli
+	addi
+	loadf
+	outf
+
+	' * Write
+	pushb 32
+	outb
+
+#line	24
+
+	pushi -6
+	push bp
+	addi
+	loadi
+	pushi 2
+	modi
+	jz	label3
+
+#line	25
+
+
+	' * Write
+	pushb 111
+	outb
+
+	' * Write
+	pushb 100
+	outb
+
+	' * Write
+	pushb 100
+	outb
+
+	' * Write
+	pushb 10
+	outb
+	jmp	label2
+ label3:
+
+#line	27
+
+
+	' * Write
+	pushb 101
+	outb
+
+	' * Write
+	pushb 118
+	outb
+
+	' * Write
+	pushb 101
+	outb
+
+	' * Write
+	pushb 110
+	outb
+
+	' * Write
+	pushb 10
+	outb
+ label2:
+
+#line	28
+
+	pushi -6
+	push bp
+	addi
+	pushi -6
+	push bp
+	addi
+	loadi
+	pushi 1
+	addi
+	storei
+	jmp	label0
+ label1:
+
+#line	30
+
+
+	' * Write
+	pushb 10
+	outb
+
+#line	32
+
+	pushi -6
+	push bp
+	addi
+	pushi 0
+	storei
+
+#line	33
+
+ label4:
+	pushi -6
+	push bp
+	addi
+	loadi
+	pushi 4
+	lti
+	jz	label5
+
+#line	34
+
+	pushi -8
+	push bp
+	addi
+	pushi 0
+	storei
+
+#line	35
+
+ label6:
+	pushi -8
+	push bp
+	addi
+	loadi
+	pushi 5
+	lti
+	jz	label7
+
+#line	36
+
+	pushi -48
+	push bp
+	addi
+	pushi -6
+	push bp
+	addi
+	loadi
+	pushi 10
+	muli
+	addi
+	pushi -8
+	push bp
+	addi
+	loadi
+	pushi 2
+	muli
+	addi
+	pushi -6
+	push bp
+	addi
+	loadi
+	pushi -8
+	push bp
+	addi
+	loadi
+	addi
+	storei
+
+#line	37
+
+
+	' * Write
+	pushi -48
+	push bp
+	addi
+	pushi -6
+	push bp
+	addi
+	loadi
+	pushi 10
+	muli
+	addi
+	pushi -8
+	push bp
+	addi
+	loadi
+	pushi 2
+	muli
+	addi
+	loadi
+	outi
+
+	' * Write
+	pushb 32
+	outb
+
+#line	38
+
+	pushi -8
+	push bp
+	addi
+	pushi -8
+	push bp
+	addi
+	loadi
+	pushi 1
+	addi
+	storei
+	jmp	label6
+ label7:
+
+#line	40
+
+
+	' * Write
+	pushb 10
+	outb
+
+#line	41
+
+	pushi -6
+	push bp
+	addi
+	pushi -6
+	push bp
+	addi
+	loadi
+	pushi 1
+	addi
+	storei
+	jmp	label4
+ label5:
+	ret 0,54,0

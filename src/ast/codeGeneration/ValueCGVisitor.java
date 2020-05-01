@@ -2,13 +2,13 @@ package ast.codeGeneration;
 
 import ast.FunctionCall;
 import ast.expressions.Expression;
+import ast.expressions.binary.Aritmetic;
 import ast.expressions.binary.Comparation;
+import ast.expressions.binary.Logic;
 import ast.expressions.literal.LiteralCharacter;
 import ast.expressions.literal.LiteralInteger;
 import ast.expressions.literal.LiteralReal;
-import ast.expressions.other.AccesoCampos;
-import ast.expressions.other.Cast;
-import ast.expressions.other.Variable;
+import ast.expressions.other.*;
 import types.Type;
 
 public class ValueCGVisitor extends AbstractCGVisitor {
@@ -103,6 +103,164 @@ public class ValueCGVisitor extends AbstractCGVisitor {
     @Override
     public Object visit(LiteralReal a, Type param) {
         cg.push(a.getValue());
+        return null;
+    }
+
+    /*
+    execute[[AccesoArray:access]]=
+    address[[access]]
+    */
+    @Override
+    public Object visit(AccesoArray a, Type param) {
+        a.accept(addressCGVisitor,param);
+        cg.load(a.getType());
+        return null;
+    }
+
+
+
+    /*
+    execute[[MenosUnario -> value]]=
+    execute[value]
+    <pushi> -1
+    <mul>
+     */
+    @Override
+    public Object visit(MenosUnario a, Type param) {
+        a.getExpression().accept(this,param);
+        cg.pushi(-1);
+        cg.mul(a.getType());
+        return null;
+    }
+    /*
+        execute[[Not:not -> expression:exp]]=
+        <push> execute[exp]
+        <not>
+    */
+    @Override
+    public Object visit(Not a, Type param) {
+        a.getExpression().accept(this,param);
+        cg.not();
+        return null;
+    }
+
+    /*
+    execute[[Aritmetic:expression -> expression:right expression:left]]()=
+    execute[right]
+    execute[left]
+    switch(expression.getOperator){
+        case '+':
+            <add> expression.getType().suffix()
+        break;
+        case '-':
+            <sub> expression.getType().suffix()
+        break;
+        case '*':
+            <mul> expression.getType().suffix()
+        break;
+        case '/':
+            <div> expression.getType().suffix()
+        break;
+    }
+     */
+    @Override
+    public Object visit(Aritmetic a, Type param) {
+        a.getLeft().accept(this,param);
+        a.getRight().accept(this,param);
+        switch (a.getOperator()) {
+            case "+":
+                cg.add(a.getType());
+                break;
+            case "-":
+                cg.sub(a.getType());
+                break;
+            case "*":
+                cg.mul(a.getType());
+                break;
+            case "/":
+                cg.div(a.getType());
+                break;
+            case "%":
+                cg.mod(a.getType());
+                break;
+        }
+        return null;
+    }
+    /*
+        execute[[Comparation:expression -> expression:right expression:left]]()=
+        <push> right.getType().suffix() execute[right]
+        <push> left.getType().suffix() execute[left]
+        switch(expression.getOperator){
+            case '>':
+                <gt> expression.getType().suffix()
+            break;
+            case '<':
+                <lt> expression.getType().suffix()
+            break;
+            case '>=':
+                <ge> expression.getType().suffix()
+            break;
+            case '<=':
+                <le> expression.getType().suffix()
+            break;
+            case '==':
+                <eq> expression.getType().suffix()
+            break;
+            case '!=':
+                <ne> expression.getType().suffix()
+            break;
+        }
+         */
+    @Override
+    public Object visit(Comparation a, Type param) {
+        a.getLeft().accept(this,param);
+        a.getRight().accept(this,param);
+        switch (a.getOperator()) {
+            case ">":
+                cg.gt(a.getType());
+                break;
+            case "<":
+                cg.lt(a.getType());
+                break;
+            case ">=":
+                cg.ge(a.getType());
+                break;
+            case "<=":
+                cg.le(a.getType());
+                break;
+            case "==":
+                cg.eq(a.getType());
+                break;
+            case "!=":
+                cg.ne(a.getType());
+                break;
+        }
+        return null;
+    }
+    /*
+      execute[[Logic:expression -> expression:right expression:left]]()=
+      <push> right.getType().suffix() execute[right]
+      <push> left.getType().suffix() execute[left]
+      switch(expression.getOperator){
+          case '&&':
+              <and>
+          break;
+          case '||':
+              <or>
+          break;
+       */
+    @Override
+    public Object visit(Logic a, Type param) {
+        a.getLeft().accept(this,param);
+        a.getRight().accept(this,param);
+        switch (a.getOperator()) {
+            case "&&":
+                cg.and();
+                break;
+            case "||":
+                cg.or();
+                break;
+        }
         return null;
     }
 }
