@@ -5,13 +5,14 @@ import ast.expressions.AbstractExpression;
 import ast.visitor.Visitor;
 import ast.expressions.Expression;
 
+
 public class AccesoCampos extends AbstractExpression implements Expression {
 
-	private Variable nombre;
+	private Expression nombre;
 	private Expression expression;
 	private boolean LValue;
 	
-	public AccesoCampos(int line, int column, Variable nombre, Expression expression) {
+	public AccesoCampos(int line, int column, Expression nombre, Expression expression) {
 		super(nombre.getLine(), nombre.getColumn());
 		this.nombre = nombre;
 		this.expression = expression;
@@ -22,7 +23,7 @@ public class AccesoCampos extends AbstractExpression implements Expression {
 		return null;
 	}
 
-	public Variable getNombre() {
+	public Expression getNombre() {
 		return nombre;
 	}
 

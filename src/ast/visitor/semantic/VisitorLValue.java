@@ -118,7 +118,7 @@ public class VisitorLValue extends AbstractVisitor {
         super.visit(a, p);
         a.setLValue(true);
         if(a.getExpression() instanceof Variable){
-            a.setType(a.getNombre().definition.getType().acceso(((Variable)a.getExpression()).getNombre(),a));
+            a.setType(((Variable)a.getNombre()).definition.getType().acceso(((Variable)a.getExpression()).getNombre(),a));
         }
         else {
             new ErrorType(a.getLine(), a.getColumn(), "No se puede acceder a un campo que no sea una variable");

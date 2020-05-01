@@ -59,7 +59,7 @@ public class AddressCGVisitor  extends AbstractCGVisitor{
     @Override
     public Object visit(AccesoCampos a, Type param) {
         a.getNombre().accept(this,param);
-        cg.pushi(a.getNombre().definition.getType().dirNum(a.getExpression()));
+        cg.pushi(((Variable)a.getNombre()).definition.getType().dirNum(a.getExpression()));
         cg.add(Integer.getInstance());
         return null;
     }

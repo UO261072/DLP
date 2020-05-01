@@ -44,7 +44,7 @@ grammar Cmm;
                         }
        |'('primitiveType')'expr {$ast= new Cast(0,0,$expr.ast,$primitiveType.ast);}
        |e1=expr '['e2=expr']' {$ast=new AccesoArray(0,0,$e1.ast,$e2.ast);}
-       |ID '.' e2=expr  {$ast=new AccesoCampos(0,0,new Variable($ID.getLine(),$ID.getCharPositionInLine(),$ID.text),$e2.ast);}
+       |e1=expr '.' e2=expr  {$ast=new AccesoCampos(0,0,$e1.ast,$e2.ast);}
        |'-' expr {$ast= new MenosUnario(0,0,$expr.ast);}
        |e1=expr s=('/'|'*'|'%') e2=expr{$ast= new Aritmetic(0,0,$s.text,$e1.ast,$e2.ast);}
        |e1=expr s=('+'|'-') e2=expr{$ast= new Aritmetic(0,0,$s.text,$e1.ast,$e2.ast);}

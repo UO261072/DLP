@@ -470,7 +470,7 @@ public class CmmParser extends Parser {
 			int _alt;
 			enterOuterAlt(_localctx, 1);
 			{
-			setState(141);
+			setState(136);
 			_errHandler.sync(this);
 			switch ( getInterpreter().adaptivePredict(_input,4,_ctx) ) {
 			case 1:
@@ -524,39 +524,28 @@ public class CmmParser extends Parser {
 			case 6:
 				{
 				setState(123);
-				((ExprContext)_localctx).ID = match(ID);
-				setState(124);
-				match(T__6);
-				setState(125);
-				((ExprContext)_localctx).e2 = ((ExprContext)_localctx).expr = expr(8);
-				((ExprContext)_localctx).ast = new AccesoCampos(0,0,new Variable(((ExprContext)_localctx).ID.getLine(),((ExprContext)_localctx).ID.getCharPositionInLine(),(((ExprContext)_localctx).ID!=null?((ExprContext)_localctx).ID.getText():null)),((ExprContext)_localctx).e2.ast);
-				}
-				break;
-			case 7:
-				{
-				setState(128);
 				match(T__7);
-				setState(129);
+				setState(124);
 				((ExprContext)_localctx).expr = expr(7);
 				((ExprContext)_localctx).ast =  new MenosUnario(0,0,((ExprContext)_localctx).expr.ast);
 				}
 				break;
-			case 8:
+			case 7:
 				{
-				setState(132);
+				setState(127);
 				match(T__18);
-				setState(133);
+				setState(128);
 				((ExprContext)_localctx).expr = expr(3);
 				((ExprContext)_localctx).ast =  new Not(0,0,((ExprContext)_localctx).expr.ast);
 				}
 				break;
-			case 9:
+			case 8:
 				{
-				setState(136);
+				setState(131);
 				match(T__2);
-				setState(137);
+				setState(132);
 				((ExprContext)_localctx).expr = expr(0);
-				setState(138);
+				setState(133);
 				match(T__3);
 				((ExprContext)_localctx).ast = ((ExprContext)_localctx).expr.ast;
 				}
@@ -580,6 +569,21 @@ public class CmmParser extends Parser {
 						_localctx.e1 = _prevctx;
 						_localctx.e1 = _prevctx;
 						pushNewRecursionContext(_localctx, _startState, RULE_expr);
+						setState(138);
+						if (!(precpred(_ctx, 8))) throw new FailedPredicateException(this, "precpred(_ctx, 8)");
+						setState(139);
+						match(T__6);
+						setState(140);
+						((ExprContext)_localctx).e2 = ((ExprContext)_localctx).expr = expr(9);
+						((ExprContext)_localctx).ast = new AccesoCampos(0,0,((ExprContext)_localctx).e1.ast,((ExprContext)_localctx).e2.ast);
+						}
+						break;
+					case 2:
+						{
+						_localctx = new ExprContext(_parentctx, _parentState);
+						_localctx.e1 = _prevctx;
+						_localctx.e1 = _prevctx;
+						pushNewRecursionContext(_localctx, _startState, RULE_expr);
 						setState(143);
 						if (!(precpred(_ctx, 6))) throw new FailedPredicateException(this, "precpred(_ctx, 6)");
 						setState(144);
@@ -598,7 +602,7 @@ public class CmmParser extends Parser {
 						((ExprContext)_localctx).ast =  new Aritmetic(0,0,(((ExprContext)_localctx).s!=null?((ExprContext)_localctx).s.getText():null),((ExprContext)_localctx).e1.ast,((ExprContext)_localctx).e2.ast);
 						}
 						break;
-					case 2:
+					case 3:
 						{
 						_localctx = new ExprContext(_parentctx, _parentState);
 						_localctx.e1 = _prevctx;
@@ -622,7 +626,7 @@ public class CmmParser extends Parser {
 						((ExprContext)_localctx).ast =  new Aritmetic(0,0,(((ExprContext)_localctx).s!=null?((ExprContext)_localctx).s.getText():null),((ExprContext)_localctx).e1.ast,((ExprContext)_localctx).e2.ast);
 						}
 						break;
-					case 3:
+					case 4:
 						{
 						_localctx = new ExprContext(_parentctx, _parentState);
 						_localctx.e1 = _prevctx;
@@ -646,7 +650,7 @@ public class CmmParser extends Parser {
 						((ExprContext)_localctx).ast =  new Comparation(0,0,(((ExprContext)_localctx).s!=null?((ExprContext)_localctx).s.getText():null),((ExprContext)_localctx).e1.ast,((ExprContext)_localctx).e2.ast);
 						}
 						break;
-					case 4:
+					case 5:
 						{
 						_localctx = new ExprContext(_parentctx, _parentState);
 						_localctx.e1 = _prevctx;
@@ -670,7 +674,7 @@ public class CmmParser extends Parser {
 						((ExprContext)_localctx).ast =  new Logic(0,0,(((ExprContext)_localctx).s!=null?((ExprContext)_localctx).s.getText():null),((ExprContext)_localctx).e1.ast,((ExprContext)_localctx).e2.ast);
 						}
 						break;
-					case 5:
+					case 6:
 						{
 						_localctx = new ExprContext(_parentctx, _parentState);
 						_localctx.e1 = _prevctx;
@@ -2041,14 +2045,16 @@ public class CmmParser extends Parser {
 	private boolean expr_sempred(ExprContext _localctx, int predIndex) {
 		switch (predIndex) {
 		case 0:
-			return precpred(_ctx, 6);
+			return precpred(_ctx, 8);
 		case 1:
-			return precpred(_ctx, 5);
+			return precpred(_ctx, 6);
 		case 2:
-			return precpred(_ctx, 4);
+			return precpred(_ctx, 5);
 		case 3:
-			return precpred(_ctx, 2);
+			return precpred(_ctx, 4);
 		case 4:
+			return precpred(_ctx, 2);
+		case 5:
 			return precpred(_ctx, 9);
 		}
 		return true;
@@ -2064,7 +2070,7 @@ public class CmmParser extends Parser {
 		"\3\3\3\3\3\3\3\3\3\3\3\3\3\3\3\3\3\3\3\3\3\3\3\3\5\3a\n\3\3\4\3\4\3\4"+
 		"\3\4\3\4\7\4h\n\4\f\4\16\4k\13\4\3\4\3\4\3\5\3\5\3\5\3\5\3\5\3\5\3\5\3"+
 		"\5\3\5\3\5\3\5\3\5\3\5\3\5\3\5\3\5\3\5\3\5\3\5\3\5\3\5\3\5\3\5\3\5\3\5"+
-		"\3\5\3\5\3\5\3\5\3\5\3\5\3\5\3\5\5\5\u0090\n\5\3\5\3\5\3\5\3\5\3\5\3\5"+
+		"\3\5\3\5\3\5\5\5\u008b\n\5\3\5\3\5\3\5\3\5\3\5\3\5\3\5\3\5\3\5\3\5\3\5"+
 		"\3\5\3\5\3\5\3\5\3\5\3\5\3\5\3\5\3\5\3\5\3\5\3\5\3\5\3\5\3\5\3\5\3\5\3"+
 		"\5\3\5\3\5\7\5\u00ac\n\5\f\5\16\5\u00af\13\5\3\6\3\6\3\6\3\6\3\6\3\6\3"+
 		"\6\3\6\5\6\u00b9\n\6\3\7\3\7\3\7\3\7\3\7\3\7\5\7\u00c1\n\7\3\b\3\b\3\b"+
@@ -2086,7 +2092,7 @@ public class CmmParser extends Parser {
 		"\3\31\5\31\u0186\n\31\3\31\3\31\3\31\3\31\3\31\3\31\3\31\5\31\u018f\n"+
 		"\31\7\31\u0191\n\31\f\31\16\31\u0194\13\31\3\31\2\3\b\32\2\4\6\b\n\f\16"+
 		"\20\22\24\26\30\32\34\36 \"$&(*,.\60\2\6\3\2\13\r\4\2\n\n\16\16\3\2\17"+
-		"\24\3\2\26\27\2\u01b0\2A\3\2\2\2\4`\3\2\2\2\6b\3\2\2\2\b\u008f\3\2\2\2"+
+		"\24\3\2\26\27\2\u01b0\2A\3\2\2\2\4`\3\2\2\2\6b\3\2\2\2\b\u008a\3\2\2\2"+
 		"\n\u00b8\3\2\2\2\f\u00c0\3\2\2\2\16\u00c2\3\2\2\2\20\u00d7\3\2\2\2\22"+
 		"\u00e6\3\2\2\2\24\u00e8\3\2\2\2\26\u00fa\3\2\2\2\30\u00fc\3\2\2\2\32\u0101"+
 		"\3\2\2\2\34\u0106\3\2\2\2\36\u0112\3\2\2\2 \u011e\3\2\2\2\"\u0126\3\2"+
@@ -2102,24 +2108,24 @@ public class CmmParser extends Parser {
 		"\2^_\b\3\1\2_a\3\2\2\2`D\3\2\2\2`G\3\2\2\2`K\3\2\2\2`N\3\2\2\2`Q\3\2\2"+
 		"\2`T\3\2\2\2`W\3\2\2\2`Z\3\2\2\2`]\3\2\2\2a\5\3\2\2\2bc\5\n\6\2ci\7(\2"+
 		"\2de\7\4\2\2ef\7(\2\2fh\b\4\1\2gd\3\2\2\2hk\3\2\2\2ig\3\2\2\2ij\3\2\2"+
-		"\2jl\3\2\2\2ki\3\2\2\2lm\b\4\1\2m\7\3\2\2\2no\b\5\1\2op\7(\2\2p\u0090"+
-		"\b\5\1\2qr\7)\2\2r\u0090\b\5\1\2st\7*\2\2t\u0090\b\5\1\2uv\7+\2\2v\u0090"+
-		"\b\5\1\2wx\7\5\2\2xy\5\n\6\2yz\7\6\2\2z{\5\b\5\f{|\b\5\1\2|\u0090\3\2"+
-		"\2\2}~\7(\2\2~\177\7\t\2\2\177\u0080\5\b\5\n\u0080\u0081\b\5\1\2\u0081"+
-		"\u0090\3\2\2\2\u0082\u0083\7\n\2\2\u0083\u0084\5\b\5\t\u0084\u0085\b\5"+
-		"\1\2\u0085\u0090\3\2\2\2\u0086\u0087\7\25\2\2\u0087\u0088\5\b\5\5\u0088"+
-		"\u0089\b\5\1\2\u0089\u0090\3\2\2\2\u008a\u008b\7\5\2\2\u008b\u008c\5\b"+
-		"\5\2\u008c\u008d\7\6\2\2\u008d\u008e\b\5\1\2\u008e\u0090\3\2\2\2\u008f"+
-		"n\3\2\2\2\u008fq\3\2\2\2\u008fs\3\2\2\2\u008fu\3\2\2\2\u008fw\3\2\2\2"+
-		"\u008f}\3\2\2\2\u008f\u0082\3\2\2\2\u008f\u0086\3\2\2\2\u008f\u008a\3"+
-		"\2\2\2\u0090\u00ad\3\2\2\2\u0091\u0092\f\b\2\2\u0092\u0093\t\2\2\2\u0093"+
-		"\u0094\5\b\5\t\u0094\u0095\b\5\1\2\u0095\u00ac\3\2\2\2\u0096\u0097\f\7"+
-		"\2\2\u0097\u0098\t\3\2\2\u0098\u0099\5\b\5\b\u0099\u009a\b\5\1\2\u009a"+
-		"\u00ac\3\2\2\2\u009b\u009c\f\6\2\2\u009c\u009d\t\4\2\2\u009d\u009e\5\b"+
-		"\5\7\u009e\u009f\b\5\1\2\u009f\u00ac\3\2\2\2\u00a0\u00a1\f\4\2\2\u00a1"+
-		"\u00a2\t\5\2\2\u00a2\u00a3\5\b\5\5\u00a3\u00a4\b\5\1\2\u00a4\u00ac\3\2"+
-		"\2\2\u00a5\u00a6\f\13\2\2\u00a6\u00a7\7\7\2\2\u00a7\u00a8\5\b\5\2\u00a8"+
-		"\u00a9\7\b\2\2\u00a9\u00aa\b\5\1\2\u00aa\u00ac\3\2\2\2\u00ab\u0091\3\2"+
+		"\2jl\3\2\2\2ki\3\2\2\2lm\b\4\1\2m\7\3\2\2\2no\b\5\1\2op\7(\2\2p\u008b"+
+		"\b\5\1\2qr\7)\2\2r\u008b\b\5\1\2st\7*\2\2t\u008b\b\5\1\2uv\7+\2\2v\u008b"+
+		"\b\5\1\2wx\7\5\2\2xy\5\n\6\2yz\7\6\2\2z{\5\b\5\f{|\b\5\1\2|\u008b\3\2"+
+		"\2\2}~\7\n\2\2~\177\5\b\5\t\177\u0080\b\5\1\2\u0080\u008b\3\2\2\2\u0081"+
+		"\u0082\7\25\2\2\u0082\u0083\5\b\5\5\u0083\u0084\b\5\1\2\u0084\u008b\3"+
+		"\2\2\2\u0085\u0086\7\5\2\2\u0086\u0087\5\b\5\2\u0087\u0088\7\6\2\2\u0088"+
+		"\u0089\b\5\1\2\u0089\u008b\3\2\2\2\u008an\3\2\2\2\u008aq\3\2\2\2\u008a"+
+		"s\3\2\2\2\u008au\3\2\2\2\u008aw\3\2\2\2\u008a}\3\2\2\2\u008a\u0081\3\2"+
+		"\2\2\u008a\u0085\3\2\2\2\u008b\u00ad\3\2\2\2\u008c\u008d\f\n\2\2\u008d"+
+		"\u008e\7\t\2\2\u008e\u008f\5\b\5\13\u008f\u0090\b\5\1\2\u0090\u00ac\3"+
+		"\2\2\2\u0091\u0092\f\b\2\2\u0092\u0093\t\2\2\2\u0093\u0094\5\b\5\t\u0094"+
+		"\u0095\b\5\1\2\u0095\u00ac\3\2\2\2\u0096\u0097\f\7\2\2\u0097\u0098\t\3"+
+		"\2\2\u0098\u0099\5\b\5\b\u0099\u009a\b\5\1\2\u009a\u00ac\3\2\2\2\u009b"+
+		"\u009c\f\6\2\2\u009c\u009d\t\4\2\2\u009d\u009e\5\b\5\7\u009e\u009f\b\5"+
+		"\1\2\u009f\u00ac\3\2\2\2\u00a0\u00a1\f\4\2\2\u00a1\u00a2\t\5\2\2\u00a2"+
+		"\u00a3\5\b\5\5\u00a3\u00a4\b\5\1\2\u00a4\u00ac\3\2\2\2\u00a5\u00a6\f\13"+
+		"\2\2\u00a6\u00a7\7\7\2\2\u00a7\u00a8\5\b\5\2\u00a8\u00a9\7\b\2\2\u00a9"+
+		"\u00aa\b\5\1\2\u00aa\u00ac\3\2\2\2\u00ab\u008c\3\2\2\2\u00ab\u0091\3\2"+
 		"\2\2\u00ab\u0096\3\2\2\2\u00ab\u009b\3\2\2\2\u00ab\u00a0\3\2\2\2\u00ab"+
 		"\u00a5\3\2\2\2\u00ac\u00af\3\2\2\2\u00ad\u00ab\3\2\2\2\u00ad\u00ae\3\2"+
 		"\2\2\u00ae\t\3\2\2\2\u00af\u00ad\3\2\2\2\u00b0\u00b1\7\30\2\2\u00b1\u00b9"+
@@ -2194,7 +2200,7 @@ public class CmmParser extends Parser {
 		"\2\u018c\u018d\b\31\1\2\u018d\u018f\3\2\2\2\u018e\u0188\3\2\2\2\u018e"+
 		"\u018b\3\2\2\2\u018f\u0191\3\2\2\2\u0190\u0187\3\2\2\2\u0191\u0194\3\2"+
 		"\2\2\u0192\u0190\3\2\2\2\u0192\u0193\3\2\2\2\u0193\61\3\2\2\2\u0194\u0192"+
-		"\3\2\2\2 ?A`i\u008f\u00ab\u00ad\u00b8\u00c0\u00c9\u00d5\u00d7\u00e3\u00e6"+
+		"\3\2\2\2 ?A`i\u008a\u00ab\u00ad\u00b8\u00c0\u00c9\u00d5\u00d7\u00e3\u00e6"+
 		"\u00f7\u00fa\u010e\u011a\u0132\u0138\u013b\u0149\u0157\u015c\u0167\u0170"+
 		"\u017b\u0185\u018e\u0192";
 	public static final ATN _ATN =
