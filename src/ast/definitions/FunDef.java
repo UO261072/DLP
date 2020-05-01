@@ -8,7 +8,7 @@ import types.Type;
 public class FunDef extends AbstractDefinition {
 
 	private List<Statement> sentences;
-	private int bytesLocalVar;
+
 	private int scope;
 	private int offset;
 
@@ -25,13 +25,7 @@ public class FunDef extends AbstractDefinition {
 		this.sentences = sentences;
 	}
 
-	public int getBytesLocalVar() {
-		return bytesLocalVar;
-	}
 
-	public void setBytesLocalVar(int bytesLocalVar) {
-		this.bytesLocalVar = bytesLocalVar;
-	}
 
 	public int getScope() {
 		return scope;

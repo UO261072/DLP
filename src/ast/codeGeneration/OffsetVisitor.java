@@ -4,6 +4,7 @@ import ast.definitions.FunDef;
 import ast.definitions.VarDef;
 import ast.visitor.AbstractVisitor;
 import types.Type;
+import types.complex.FunctionType;
 import types.record.RecordField;
 import types.record.RecordType;
 import types.simple.Character;
@@ -13,6 +14,7 @@ import types.simple.Real;
 public class OffsetVisitor extends AbstractVisitor {
     int offset=0;
     int scope=0;
+    int prevSizeGlobal=0;
     int prevSize=0;
 
     @Override
@@ -20,7 +22,7 @@ public class OffsetVisitor extends AbstractVisitor {
         scope++;
         prevSize=0;
         super.visit(a, p);
-        a.setBytesLocalVar(-prevSize);
+        ((FunctionType)a.getType()).setBytesLocalVar(-prevSize);
         scope--;
         return null;
     }
@@ -29,8 +31,9 @@ public class OffsetVisitor extends AbstractVisitor {
     public Object visit(VarDef a, Type p) {
         super.visit(a, p);
         if (scope == 0){
-            a.setOffset(prevSize);
-            prevSize+=a.getType().size();
+            a.setOffset(prevSizeGlobal);
+            a.setScope(scope);
+            prevSizeGlobal+=a.getType().size();
         }
         else if(scope>0){
             if(a.isParam()) {

@@ -13,6 +13,7 @@ public class FunctionType extends AbstractType implements Type{
 
 	private Type returnType;
 	private List<VarDef> param;
+	private int bytesLocalVar;
 	
 	public FunctionType(Type returnType, List<VarDef> param) {
 		super();
@@ -42,6 +43,14 @@ public class FunctionType extends AbstractType implements Type{
 			i+=var.getType().size();
 		}
 		return i;
+	}
+
+	public int getBytesLocalVar() {
+		return bytesLocalVar;
+	}
+
+	public void setBytesLocalVar(int bytesLocalVar) {
+		this.bytesLocalVar = bytesLocalVar;
 	}
 	@Override
 	public Type parentheisis(List<Expression> t, ASTNode node) {

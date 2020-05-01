@@ -93,7 +93,7 @@ grammar Cmm;
         array returns[VarDef ast]: arrayType ID{$ast=new VarDef(0,0,$ID.text,$arrayType.ast);}';';
 
 
-        arrayType returns[ArrayType ast]:{List<java.lang.Integer> l=new ArrayList<java.lang.Integer>();} complexType ('['INT_CONSTANT{l.add(java.lang.Integer.parseInt($INT_CONSTANT.text));}']')*{
+        arrayType returns[ArrayType ast]:{List<java.lang.Integer> l=new ArrayList<java.lang.Integer>();} complexType ('['INT_CONSTANT{l.add(java.lang.Integer.parseInt($INT_CONSTANT.text));}']')+{
         ArrayType a=new ArrayType(java.lang.Integer.parseInt($INT_CONSTANT.text),$complexType.ast);
         for(int i=l.size()-2;i>=0;i--){
             ArrayType b=new ArrayType(l.get(i),a);

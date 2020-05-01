@@ -98,12 +98,12 @@ public class ExecuteCGVisitor extends AbstractCGVisitor{
         for(Statement s:a.getSentences())
             if(s instanceof VarDef)
                 s.accept(this,param);
-        cg.enter(a.getBytesLocalVar()+((FunctionType) a.getType()).getParamBytes());
+        cg.enter(((FunctionType)a.getType()).getBytesLocalVar());
         for(Statement s:a.getSentences())
             if(!(s instanceof VarDef))
-                s.accept(this,a);
+                s.accept(this,a.getType());
         if(((FunctionType) a.getType()).getReturnType() instanceof Void)
-            cg.ret(0,a.getBytesLocalVar(),((FunctionType) a.getType()).getParamBytes());
+            cg.ret(0,((FunctionType)a.getType()).getBytesLocalVar(),((FunctionType) a.getType()).getParamBytes());
         return null;
     }
     /*
@@ -425,7 +425,10 @@ public class ExecuteCGVisitor extends AbstractCGVisitor{
      */
     @Override
     public Object visit(Return a, Type param) {
-        cg.ret(a.getExpression().getType().size(),((FunDef)param).getBytesLocalVar(),((FunctionType)((FunDef)param).getType()).getParamBytes());
+        cg.line(a.getLine());
+        cg.anotation("\t' * Return");
+        a.getExpression().accept(this,param);
+        cg.ret(a.getExpression().getType().size(),((FunctionType)param).getBytesLocalVar(),((FunctionType)param).getParamBytes());
         return null;
     }
     /*
@@ -464,7 +467,7 @@ public class ExecuteCGVisitor extends AbstractCGVisitor{
         cg.line(a.getLine());
         for (Expression e:a.getList()) {
             cg.anotation("\n\t' * Write");
-            e.accept(this, param);
+            e.accept(valueCGVisitor, param);
             cg.out(e);
         }
         return null;
@@ -478,8 +481,9 @@ public class ExecuteCGVisitor extends AbstractCGVisitor{
      */
     @Override
     public Object visit(FunctionCall a, Type param) {
+        cg.line(a.getLine());
         a.accept(valueCGVisitor,param);
-        if(a.getFunction().definition.getType() instanceof Void)
+        if(!(a.getType() instanceof Void))
             cg.pop(a.getType());
         return null;
     }

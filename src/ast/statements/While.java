@@ -5,6 +5,7 @@ import java.util.List;
 import ast.AbstractASTNode;
 import ast.visitor.Visitor;
 import ast.expressions.Expression;
+import types.Type;
 
 public class While extends AbstractASTNode implements Statement {
 
@@ -19,7 +20,7 @@ public class While extends AbstractASTNode implements Statement {
 
 	@Override
 	public Object accept(Visitor v, Object o) {
-		v.visit(this,null);
+		v.visit(this,(Type)o);
 		return null;
 	}
 
