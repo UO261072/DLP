@@ -59,10 +59,10 @@ public class OffsetVisitor extends AbstractVisitor {
             for (RecordField rf:((RecordType) a.getType()).getComponents()){
                 rf.setOffset(i);
                 i+=rf.getType().size();
-                System.out.println(a.getName()+"."+rf.getName()+" "+rf.getOffset());
+                //System.out.println(a.getName()+"."+rf.getName()+" "+rf.getOffset());
             }
         }
-        System.out.println(a.getName()+" "+a.getOffset());
+        //System.out.println(a.getName()+" "+a.getOffset());
         return null;
     }
 
