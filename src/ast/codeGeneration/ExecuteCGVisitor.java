@@ -163,24 +163,48 @@ public class ExecuteCGVisitor extends AbstractCGVisitor{
     }
 
     /*
-    execute[[If :stmt -> expr stmt* stmt1*]]()=
-    if(stmt1*!=null)
-        int labelNumber=cg.getLabels(2);
-    else
-        int labelNumber=cg.getLabels(1);
-    Value[[expr]]
-    <jz label> labelNumber
-    for(Statement stmt:stmt*)
-        execute[[stmt]]
-    <jmp label> labelNumber+1
-    <label> labelNumber <:>
-    for(Statement stmt:stmt1*)
-        execute[[stmt]]
-    <label> labelNumber+1
+    execute[[ArrayCharAssignment:acs -> expression:left String:right]]=
+    for(int i;i<right.lenght();i++)
+        addressCGVisitor.visit(left)
+        <pushi> i
+        <addi>
+        <pushb> right.charAt(i)
+        <store>
+     */
 
+    @Override
+    public Object visit(ArrayCharAssignment a, Type param) {
+        cg.line(a.getLine());
+        for(int i=0;i<a.getArrayChar().length();i++){
+            a.getLeft().accept(addressCGVisitor,param);
+            cg.pushi(i);
+            cg.add(Integer.getInstance());
+            cg.push(a.getArrayChar().charAt(i));
+            cg.store(Character.getInstance());
+        }
+
+        return null;
     }
 
-     */
+    /*
+        execute[[If :stmt -> expr stmt* stmt1*]]()=
+        if(stmt1*!=null)
+            int labelNumber=cg.getLabels(2);
+        else
+            int labelNumber=cg.getLabels(1);
+        Value[[expr]]
+        <jz label> labelNumber
+        for(Statement stmt:stmt*)
+            execute[[stmt]]
+        <jmp label> labelNumber+1
+        <label> labelNumber <:>
+        for(Statement stmt:stmt1*)
+            execute[[stmt]]
+        <label> labelNumber+1
+
+        }
+
+         */
     @Override
     public Object visit(If a, Type param) {
         cg.line(a.getLine());

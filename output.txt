@@ -1,2 +1,459 @@
-#source "input_wrong_1.txt"
+#source "input_1.txt"
 
+	' * [3,[7,char]] messages (offset 0)
+
+' Invocation to the main function
+call main
+halt
+
+#line	3
+
+ initMessages:
+	' * Parameters
+	' * Local variables
+	enter 0
+
+#line	4
+
+	pusha 0
+	pushi 0
+	pushi 7
+	muli
+	addi
+	pushi 0
+	addi
+	pushb 104
+	storeb
+	pusha 0
+	pushi 0
+	pushi 7
+	muli
+	addi
+	pushi 1
+	addi
+	pushb 101
+	storeb
+	pusha 0
+	pushi 0
+	pushi 7
+	muli
+	addi
+	pushi 2
+	addi
+	pushb 108
+	storeb
+	pusha 0
+	pushi 0
+	pushi 7
+	muli
+	addi
+	pushi 3
+	addi
+	pushb 108
+	storeb
+	pusha 0
+	pushi 0
+	pushi 7
+	muli
+	addi
+	pushi 4
+	addi
+	pushb 111
+	storeb
+	pusha 0
+	pushi 0
+	pushi 7
+	muli
+	addi
+	pushi 5
+	addi
+	pushb 119
+	storeb
+	pusha 0
+	pushi 0
+	pushi 7
+	muli
+	addi
+	pushi 6
+	addi
+	pushb 33
+	storeb
+
+#line	5
+
+	pusha 0
+	pushi 1
+	pushi 7
+	muli
+	addi
+	pushi 0
+	addi
+	pushb 119
+	storeb
+	pusha 0
+	pushi 1
+	pushi 7
+	muli
+	addi
+	pushi 1
+	addi
+	pushb 97
+	storeb
+	pusha 0
+	pushi 1
+	pushi 7
+	muli
+	addi
+	pushi 2
+	addi
+	pushb 114
+	storeb
+	pusha 0
+	pushi 1
+	pushi 7
+	muli
+	addi
+	pushi 3
+	addi
+	pushb 110
+	storeb
+	pusha 0
+	pushi 1
+	pushi 7
+	muli
+	addi
+	pushi 4
+	addi
+	pushb 105
+	storeb
+	pusha 0
+	pushi 1
+	pushi 7
+	muli
+	addi
+	pushi 5
+	addi
+	pushb 110
+	storeb
+	pusha 0
+	pushi 1
+	pushi 7
+	muli
+	addi
+	pushi 6
+	addi
+	pushb 103
+	storeb
+
+#line	6
+
+	pusha 0
+	pushi 2
+	pushi 7
+	muli
+	addi
+	pushi 0
+	addi
+	pushb 98
+	storeb
+	pusha 0
+	pushi 2
+	pushi 7
+	muli
+	addi
+	pushi 1
+	addi
+	pushb 121
+	storeb
+	pusha 0
+	pushi 2
+	pushi 7
+	muli
+	addi
+	pushi 2
+	addi
+	pushb 101
+	storeb
+	pusha 0
+	pushi 2
+	pushi 7
+	muli
+	addi
+	pushi 3
+	addi
+	pushb 98
+	storeb
+	pusha 0
+	pushi 2
+	pushi 7
+	muli
+	addi
+	pushi 4
+	addi
+	pushb 121
+	storeb
+	pusha 0
+	pushi 2
+	pushi 7
+	muli
+	addi
+	pushi 5
+	addi
+	pushb 101
+	storeb
+	pusha 0
+	pushi 2
+	pushi 7
+	muli
+	addi
+	pushi 6
+	addi
+	pushb 33
+	storeb
+	ret 0,0,0
+
+#line	10
+
+ writeAllMessages:
+	' * Parameters
+	' * Local variables
+	' * int i (offset -2)
+	' * int j (offset -4)
+	' * int nMessages (offset -6)
+	' * int messageSize (offset -8)
+	enter 8
+
+#line	13
+
+	pushi -2
+	push bp
+	addi
+	pushi 0
+	storei
+
+#line	14
+
+	pushi -4
+	push bp
+	addi
+	pushi 0
+	storei
+
+#line	15
+
+	pushi -8
+	push bp
+	addi
+	pushi 7
+	storei
+
+#line	16
+
+	pushi -6
+	push bp
+	addi
+	pushi 3
+	storei
+
+#line	17
+
+ label0:
+	pushi -2
+	push bp
+	addi
+	loadi
+	pushi -6
+	push bp
+	addi
+	loadi
+	lti
+	jz	label1
+
+#line	19
+
+	pushi -4
+	push bp
+	addi
+	pushi 0
+	storei
+
+#line	20
+
+ label2:
+	pushi -4
+	push bp
+	addi
+	loadi
+	pushi -8
+	push bp
+	addi
+	loadi
+	lti
+	jz	label3
+
+#line	21
+
+
+	' * Write
+	pusha 0
+	pushi -2
+	push bp
+	addi
+	loadi
+	pushi 7
+	muli
+	addi
+	pushi -4
+	push bp
+	addi
+	loadi
+	pushi 1
+	muli
+	addi
+	loadb
+	outb
+
+#line	22
+
+	pushi -4
+	push bp
+	addi
+	pushi -4
+	push bp
+	addi
+	loadi
+	pushi 1
+	addi
+	storei
+	jmp	label2
+ label3:
+
+#line	24
+
+
+	' * Write
+	pushb 10
+	outb
+
+#line	25
+
+	pushi -2
+	push bp
+	addi
+	pushi -2
+	push bp
+	addi
+	loadi
+	pushi 1
+	addi
+	storei
+	jmp	label0
+ label1:
+	ret 0,8,0
+
+#line	30
+
+ main:
+	' * Parameters
+	' * Local variables
+	enter 0
+
+#line	32
+
+call initMessages
+
+#line	34
+
+call writeAllMessages
+
+#line	40
+
+	pusha 0
+	pushi 1
+	pushi 7
+	muli
+	addi
+	pushi 0
+	addi
+	pushb 55
+	storeb
+	pusha 0
+	pushi 1
+	pushi 7
+	muli
+	addi
+	pushi 1
+	addi
+	pushb 55
+	storeb
+	pusha 0
+	pushi 1
+	pushi 7
+	muli
+	addi
+	pushi 2
+	addi
+	pushb 54
+	storeb
+	pusha 0
+	pushi 1
+	pushi 7
+	muli
+	addi
+	pushi 3
+	addi
+	pushb 54
+	storeb
+
+#line	41
+
+	pusha 0
+	pushi 2
+	pushi 7
+	muli
+	addi
+	pushi 0
+	addi
+	pushb 42
+	storeb
+	pusha 0
+	pushi 2
+	pushi 7
+	muli
+	addi
+	pushi 1
+	addi
+	pushb 42
+	storeb
+	pusha 0
+	pushi 2
+	pushi 7
+	muli
+	addi
+	pushi 2
+	addi
+	pushb 95
+	storeb
+	pusha 0
+	pushi 2
+	pushi 7
+	muli
+	addi
+	pushi 3
+	addi
+	pushb 95
+	storeb
+	pusha 0
+	pushi 2
+	pushi 7
+	muli
+	addi
+	pushi 4
+	addi
+	pushb 95
+	storeb
+
+#line	43
+
+call writeAllMessages
+	ret 0,0,0
