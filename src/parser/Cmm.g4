@@ -21,7 +21,7 @@ grammar Cmm;
        array{$ast.addDefinition($array.ast);}|
        struct{$ast.addDefinition($struct.ast);})*;
 
-       statement returns [ast.statements.Statement ast]: (arrayCharAsig{$ast=$arrayCharAsig.ast;}|asignation{$ast=$asignation.ast;}|(funinv{$ast=$funinv.ast;}';')|devuelve{$ast=$devuelve.ast;}|struct{$ast=$struct.ast;}|array{$ast=$array.ast;}|write{$ast=$write.ast;}|read{$ast=$read.ast;}|mientras{$ast=$mientras.ast;}|si{$ast=$si.ast;})
+       statement returns [ast.statements.Statement ast]: (forEach{$ast=$forEach.ast;}|arrayCharAsig{$ast=$arrayCharAsig.ast;}|asignation{$ast=$asignation.ast;}|(funinv{$ast=$funinv.ast;}';')|devuelve{$ast=$devuelve.ast;}|struct{$ast=$struct.ast;}|array{$ast=$array.ast;}|write{$ast=$write.ast;}|read{$ast=$read.ast;}|mientras{$ast=$mientras.ast;}|si{$ast=$si.ast;})
 
        ;
 
@@ -121,7 +121,11 @@ grammar Cmm;
 
 
 
-
+       forEach returns[ForEach ast]: 'for''('e1=expr 'in' e2=expr')'('{'funbody{$ast=new ForEach(0,0,$e1.ast,$e2.ast,$funbody.ast);}'}'|statement{
+       List<ast.statements.Statement> l=new ArrayList<Statement>();
+       if($statement.ast!=null)
+       l.add($statement.ast);
+       $ast=new ForEach(0,0,$e1.ast,$e2.ast,l );});
 
 
        mientras returns[While ast]:'while' '('expr')'('{'funbody{$ast=new While(0,0,$expr.ast,$funbody.ast);}'}'|statement{

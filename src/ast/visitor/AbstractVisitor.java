@@ -192,4 +192,13 @@ public abstract class AbstractVisitor implements Visitor {
         a.getLeft().accept(this,param);
         return null;
     }
+
+    @Override
+    public Object visit(ForEach a, Type param) {
+        a.getLeft().accept(this,param);
+        a.getRight().accept(this,param);
+        for(Statement st:a.getDoForEach())
+            st.accept(this,param);
+        return null;
+    }
 }

@@ -85,4 +85,9 @@ public abstract class AbstractType implements Type {
     public Type arrayCharAssignation(String array, ASTNode node) {
        return new ErrorType(node.getLine(),node.getColumn(),"Solo se puede asignar un Array Char a un Array de Chars");
     }
+
+    @Override
+    public Type subsegment(Type t, ASTNode node) {
+        return null;
+    }
 }

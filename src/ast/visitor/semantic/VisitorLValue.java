@@ -261,4 +261,11 @@ public class VisitorLValue extends AbstractVisitor {
         a.getLeft().getType().arrayCharAssignation(a.getArrayChar(),a);
         return  null;
     }
+
+    @Override
+    public Object visit(ForEach a, Type param) {
+        super.visit(a, param);
+        a.getLeft().getType().subsegment(a.getRight().getType(),a);
+        return null;
+    }
 }

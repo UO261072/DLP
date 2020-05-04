@@ -44,10 +44,10 @@ public class Main {
 		if(ErrorHandler.getInstance().anyError()){
 			ErrorHandler.getInstance().showErrors();
 		}else {
-			v2.visit(p,null);
-			generationVisitor.visit(p,null);
-			//IntrospectorModel model = new IntrospectorModel("Program", p);
-			//new IntrospectorTree("Tree", model);
+			//v2.visit(p,null);
+			//generationVisitor.visit(p,null);
+			IntrospectorModel model = new IntrospectorModel("Program", p);
+			new IntrospectorTree("Tree", model);
 
 
 		}
@@ -55,3 +55,25 @@ public class Main {
 	
 
 }
+
+
+/*
+		He completado el primer ejercicio al completo, y la semantica y sintaxis del segundo
+		Me queda añadir la comprobacion para lanzar errores en el ForEach y la generacion de codigo de el mismo
+
+		Para generar codigo habia pensado hacerlo asi:
+
+		execute[[ForEach:forEach -> Expression:left Expression:right Statement*:body]]()=
+		for(int i=0;i<right.lenght();i++){
+			address[right]
+			<push> i*right.size
+			<add>
+			<load> right.suffix
+			<store> left.suffix
+			for(statement st:body)
+				execute[[st]]
+
+
+		}
+
+ */

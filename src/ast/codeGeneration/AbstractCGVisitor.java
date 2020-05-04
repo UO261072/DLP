@@ -143,4 +143,9 @@ public class AbstractCGVisitor implements Visitor {
     public Object visit(ArrayCharAssignment a, Type param) {
         throw new IllegalStateException("Code generation template \""+a.getClass()+"\" not defined for the code function" + this.getClass().getName());
     }
+
+    @Override
+    public Object visit(ForEach a, Type param) {
+        throw new IllegalStateException("Code generation template \""+a.getClass()+"\" not defined for the code function" + this.getClass().getName());
+    }
 }

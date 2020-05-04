@@ -35,5 +35,7 @@ public interface Type  {
 
     Type arrayCharAssignation(String array,ASTNode node);
 
+    Type subsegment(Type t,ASTNode node);
+
     int dirNum(Expression e);
 }
