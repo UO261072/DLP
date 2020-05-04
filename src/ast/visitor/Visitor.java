@@ -40,4 +40,5 @@ public interface Visitor {
     public Object visit(Write a, Type param);
     public Object visit(FunctionCall a, Type param);
     public Object visit(Program a, Type param);
+    public Object visit(ArrayCharAssignment a, Type param);
 }

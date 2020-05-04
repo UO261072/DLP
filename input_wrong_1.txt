@@ -1,0 +1,25 @@
+char[30][7] moreMessages;
+int[5] vector;
+struct{
+char[10] author;
+char[23] body;
+} message;
+
+void initMessages(){
+
+moreMessages[0][0]<-"hellow!";  //Error, it is not possible to store a 7-caracter String in type char
+moreMessages<-"warning";        //Error, it is not possible to store a 7-caracter String in type Array[Array[char,7],30]
+vector<-"byebye!";              //Error, it is not possible to store a 7-caracter String in type Array[int,5]
+message<-"byebye!";             //Error, it is not possible to store a 7-caracter String in type Record{char[10] author; char[20] body; }
+moreMessages[0]<-"byebye!";          //No errors at this line
+message.author<-"Oscar";        //No errors at this line
+message.body<-"too long boring text....";       //Error, it is not possible to store a 24-caracter String in type Array[char,23]
+
+
+mxxxsage<-"anything";  //Error, variable mxxxsage not defined
+
+}
+
+void main(){
+initMessages();
+}

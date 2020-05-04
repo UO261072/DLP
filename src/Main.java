@@ -44,11 +44,11 @@ public class Main {
 		if(ErrorHandler.getInstance().anyError()){
 			ErrorHandler.getInstance().showErrors();
 		}else {
-			v2.visit(p,null);
-			generationVisitor.visit(p,null);
-			/*IntrospectorModel model = new IntrospectorModel("Program", p);
+			//v2.visit(p,null);
+			//generationVisitor.visit(p,null);
+			IntrospectorModel model = new IntrospectorModel("Program", p);
 			new IntrospectorTree("Tree", model);
-			*/
+
 
 		}
 	}

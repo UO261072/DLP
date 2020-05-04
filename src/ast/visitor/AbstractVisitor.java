@@ -186,4 +186,10 @@ public abstract class AbstractVisitor implements Visitor {
         }
         return null;
     }
+
+    @Override
+    public Object visit(ArrayCharAssignment a, Type param) {
+        a.getLeft().accept(this,param);
+        return null;
+    }
 }

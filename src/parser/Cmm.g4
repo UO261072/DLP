@@ -21,7 +21,7 @@ grammar Cmm;
        array{$ast.addDefinition($array.ast);}|
        struct{$ast.addDefinition($struct.ast);})*;
 
-       statement returns [ast.statements.Statement ast]: (asignation{$ast=$asignation.ast;}|(funinv{$ast=$funinv.ast;}';')|devuelve{$ast=$devuelve.ast;}|struct{$ast=$struct.ast;}|array{$ast=$array.ast;}|write{$ast=$write.ast;}|read{$ast=$read.ast;}|mientras{$ast=$mientras.ast;}|si{$ast=$si.ast;})
+       statement returns [ast.statements.Statement ast]: (arrayCharAsig{$ast=$arrayCharAsig.ast;}|asignation{$ast=$asignation.ast;}|(funinv{$ast=$funinv.ast;}';')|devuelve{$ast=$devuelve.ast;}|struct{$ast=$struct.ast;}|array{$ast=$array.ast;}|write{$ast=$write.ast;}|read{$ast=$read.ast;}|mientras{$ast=$mientras.ast;}|si{$ast=$si.ast;})
 
        ;
 
@@ -104,6 +104,8 @@ grammar Cmm;
 
        asignation returns[Assignment ast]: e1=expr '=' (e2=expr {$ast=new Assignment(0,0,$e1.ast,$e2.ast);}|funinv{$ast=new Assignment(0,0,$e1.ast,$funinv.ast);})';';
 
+       arrayCharAsig returns[ArrayCharAssignment ast]: e1=expr '<-' arrayChar';'{$ast=new ArrayCharAssignment(0,0,$e1.ast,$arrayChar.ast);};
+
        struct returns[VarDef ast]: 'struct' '{' structComponents'}' ID ';'{
        RecordType rt=new RecordType($structComponents.ast);
        $ast=new VarDef($ID.getLine(),$ID.getCharPositionInLine(),$ID.text,rt);};
@@ -151,6 +153,8 @@ grammar Cmm;
 
 
 
+       arrayChar returns[String ast=""]: STRING {$ast=$STRING.getText();};
+
 
 WS:[ \r\t\n] -> skip
 ;
@@ -160,6 +164,10 @@ COMENTARIOS: (('//'.*?'\n')|('//'.*?EOF)|('/*'.*?'*/')|('/*'.*?EOF)) ->skip
 
 ID: ([a-zA-Z]|'_')[a-zA-Z0-9_]*
 ;
+
+
+
+
 REAL_CONSTANT: ([0-9]*'.'[0-9]+)|
                 ([0-9]+'.'[0-9]*)|
                 ([0-9]*'.'[0-9]+('e'|'E')'-'*[1-9][0-9]*)|
@@ -171,4 +179,8 @@ CHAR_CONSTANT: '\''.'\''|
                 '\'''\\'([1-9][0-9]*|'0')'\''|
                 '\'''\\''n''\''|'\'''\\''t''\''
 ;
+
+STRING:'"'.*?'"';
+
+
 

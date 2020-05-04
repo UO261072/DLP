@@ -1,0 +1,50 @@
+char[3][7] messages;
+
+void initMessages(){
+messages[0]<-"hellow!";
+messages[1]<-"warning";
+messages[2]<-"byebye!";
+}
+
+
+void writeAllMessages(){
+int i,j;
+int nMessages, messageSize;
+i=0;
+j=0;
+messageSize=7;
+nMessages=3;
+while(i<nMessages)
+    {
+    j=0;
+    while(j<messageSize){
+            write messages[i][j];
+           j=j+1;
+            }
+    write '\n';
+    i=i+1;
+    }
+}
+
+
+void main(){
+
+initMessages();
+
+writeAllMessages();
+//Should print:
+//hellow!
+//warning
+//byebye!
+
+messages[1]<-"7766";
+messages[2]<-"**___";
+
+writeAllMessages();
+//Should print:
+//hellow!
+//7766ing
+//**___e!
+
+}
+
