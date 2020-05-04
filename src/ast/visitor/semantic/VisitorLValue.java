@@ -246,4 +246,19 @@ public class VisitorLValue extends AbstractVisitor {
                     new ErrorType(a.getLine(),a.getColumn(), "Solo se pueden escribir tipos basicos");
         return null;
     }
+
+    @Override
+    public Object visit(ArrayCharAssignment a, Type param) {
+        super.visit(a,param);
+        if(a.getLeft()instanceof Variable && ((Variable) a.getLeft()).definition==null)
+            return null;
+        if(a.getLeft().getType() instanceof ErrorType)
+            return null;
+        if(!a.getLeft().isLValue()){
+            new ErrorType(a.getLeft().getLine(),a.getLeft().getColumn(),"No se puede asignar un array de caracteres a esto");
+            return null;
+        }
+        a.getLeft().getType().arrayCharAssignation(a.getArrayChar(),a);
+        return  null;
+    }
 }

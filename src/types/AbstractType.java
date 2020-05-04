@@ -80,4 +80,9 @@ public abstract class AbstractType implements Type {
     public int dirNum(Expression e) {
         throw new IllegalStateException("No se puede comprobar la direccion del struct de este tipo");
     }
+
+    @Override
+    public Type arrayCharAssignation(String array, ASTNode node) {
+       return new ErrorType(node.getLine(),node.getColumn(),"Solo se puede asignar un Array Char a un Array de Chars");
+    }
 }

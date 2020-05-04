@@ -14,9 +14,8 @@ public class ArrayCharAssignment extends AbstractASTNode implements Statement{
 
     public ArrayCharAssignment(int line, int column, Expression left, String arrayChar) {
         super(left.getLine(), left.getColumn());
-
         this.left = left;
-        this.arrayChar = arrayChar;
+        this.arrayChar = arrayChar.substring(1,arrayChar.length()-1);
     }
     @Override
     public Object accept(Visitor v, Object o) {

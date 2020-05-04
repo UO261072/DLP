@@ -33,5 +33,7 @@ public interface Type  {
 
     Type comparation(Type t,ASTNode node);
 
+    Type arrayCharAssignation(String array,ASTNode node);
+
     int dirNum(Expression e);
 }

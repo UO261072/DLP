@@ -8,6 +8,7 @@ import types.ErrorType;
 import types.Type;
 import types.record.RecordField;
 import types.record.RecordType;
+import types.simple.Character;
 import types.simple.Integer;
 
 public class ArrayType extends AbstractType implements Type {
@@ -28,6 +29,16 @@ public class ArrayType extends AbstractType implements Type {
 		if(t==Integer.getInstance())
 			return this.type;
 		return super.indexing(t,node);
+	}
+
+	@Override
+	public Type arrayCharAssignation(String array, ASTNode node) {
+		if(this.getType()== Character.getInstance())
+			if(array.length()<=this.size)
+				return type;
+			else
+				return new ErrorType(node.getLine(),node.getColumn(),"La longitud del String no puede ser mayor que la del array");
+		return super.arrayCharAssignation(array, node);
 	}
 
 	public int getSize() {
@@ -79,4 +90,6 @@ public class ArrayType extends AbstractType implements Type {
 			return getType().dirNum(e);
 		return super.dirNum(e);
 	}
+
+
 }
